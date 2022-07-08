@@ -1,0 +1,5 @@
+name: AdvancedForm
+version: 0.0.1
+antigen: pjz9n\advancedform
+api:
+  - 4.0.0
