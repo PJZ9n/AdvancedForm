@@ -51,7 +51,8 @@ class ModalFormImmutable extends FormBase
      * @param string $text Text displayed on the form
      * @param string $button1Text Text displayed on top button
      * @param string $button2Text Text displayed on bottom button
-     * @phpstan-param Closure(Player, bool): void $handleChoice Called when the button is choiced
+     * @param Closure $handleChoice Called when the button is choiced
+     * @phpstan-param Closure(Player, bool): void $handleChoice
      *
      * @internal It is recommended to use MenuFormBuilder to make this
      * @see MenuFormBuilder
