@@ -30,6 +30,7 @@ use DaveRandom\CallbackValidator\ParameterType;
 use DaveRandom\CallbackValidator\ReturnType;
 use pjz9n\advancedform\FormBase;
 use pjz9n\advancedform\FormTypes;
+use pjz9n\advancedform\menu\button\handler\HandlerMenuButton;
 use pjz9n\advancedform\menu\button\MenuButton;
 use pjz9n\advancedform\util\Utils;
 use pocketmine\form\FormValidationException;
@@ -112,7 +113,11 @@ class MenuFormImmutable extends FormBase
             throw new FormValidationException("Excepted range 0-" . ($buttonsCount - 1) . ", got $data");
         }
         assert(array_key_exists($data, $this->buttons), "There is a button");
-        ($this->handleSelect)($player, new MenuFormResponse($data, $this->buttons[$data]));
+        $selectedButton = $this->buttons[$data];
+        if ($selectedButton instanceof HandlerMenuButton && $selectedButton->handle($player, $this)) {
+            return;
+        }
+        ($this->handleSelect)($player, new MenuFormResponse($data, $selectedButton));
     }
 
     /**
