@@ -91,9 +91,10 @@ final class ModalFormBuilder
         return $this->title;
     }
 
-    public function setTitle(string $title): void
+    public function setTitle(string $title): self
     {
         $this->title = $title;
+        return $this;
     }
 
     public function getText(): string
@@ -101,9 +102,10 @@ final class ModalFormBuilder
         return $this->text;
     }
 
-    public function setText(string $text): void
+    public function setText(string $text): self
     {
         $this->text = $text;
+        return $this;
     }
 
     public function getButton1Text(): string
@@ -111,9 +113,10 @@ final class ModalFormBuilder
         return $this->button1Text;
     }
 
-    public function setButton1Text(string $button1Text): void
+    public function setButton1Text(string $button1Text): self
     {
         $this->button1Text = $button1Text;
+        return $this;
     }
 
     public function getButton2Text(): string
@@ -121,8 +124,9 @@ final class ModalFormBuilder
         return $this->button2Text;
     }
 
-    public function setButton2Text(string $button2Text): void
+    public function setButton2Text(string $button2Text): self
     {
         $this->button2Text = $button2Text;
+        return $this;
     }
 }
