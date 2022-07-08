@@ -54,8 +54,8 @@ class ModalFormImmutable extends FormBase
      * @param Closure $handleChoice Called when the button is choiced
      * @phpstan-param Closure(Player, bool): void $handleChoice
      *
-     * @internal It is recommended to use MenuFormBuilder to make this
-     * @see MenuFormBuilder
+     * @internal It is recommended to use ModalFormBuilder to make this
+     * @see ModalFormBuilder
      */
     public function __construct(
         string          $title,
