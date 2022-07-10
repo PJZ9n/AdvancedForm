@@ -60,6 +60,14 @@ class CallbackMenuButton extends HandlerMenuButton
         parent::__construct($text, $image, $name);
     }
 
+    /**
+     * @phpstan-param Closure(Player, MenuFormImmutable, CallbackMenuButton): bool $callback
+     */
+    public function getCallback(): Closure
+    {
+        return $this->callback;
+    }
+
     public function handle(Player $player, MenuFormImmutable $form): bool
     {
         return ($this->callback)($player, $form, $this);
