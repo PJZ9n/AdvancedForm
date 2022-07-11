@@ -62,22 +62,34 @@ class CallbackMenuForm extends MenuForm
         parent::__construct($title, $text);
     }
 
+    /**
+     * @phpstan-return Closure(Player, MenuFormResponse): void|null
+     */
     public function getHandleSelect(): ?Closure
     {
         return $this->handleSelect;
     }
 
+    /**
+     * @phpstan-param Closure(Player, MenuFormResponse): void|null $handleSelect
+     */
     public function setHandleSelect(?Closure $handleSelect): self
     {
         $this->handleSelect = $handleSelect;
         return clone $this;
     }
 
+    /**
+     * @phpstan-return Closure(Player): void|null
+     */
     public function getHandleClose(): ?Closure
     {
         return $this->handleClose;
     }
 
+    /**
+     * @phpstan-param Closure(Player): void|null $handleClose
+     */
     public function setHandleClose(?Closure $handleClose): self
     {
         $this->handleClose = $handleClose;
