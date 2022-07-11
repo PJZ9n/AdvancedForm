@@ -35,7 +35,7 @@ use function array_key_exists;
 use function gettype;
 use function is_int;
 
-abstract class MenuForm extends FormBase
+class MenuForm extends FormBase
 {
     protected static function getType(): string
     {
