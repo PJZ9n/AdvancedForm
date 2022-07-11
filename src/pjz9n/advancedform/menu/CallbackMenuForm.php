@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace pjz9n\advancedform\menu;
 
 use Closure;
+use pjz9n\advancedform\button\Button;
 use pjz9n\advancedform\menu\response\MenuFormResponse;
 use pocketmine\player\Player;
 use pocketmine\utils\Utils;
@@ -37,6 +38,8 @@ class CallbackMenuForm extends MenuForm
      * @phpstan-param Closure(Player, MenuFormResponse): void|null $handleSelect
      * @param Closure|null $handleClose Called when the form is closed
      * @phpstan-param Closure(Player): void|null $handleClose
+     * @param Button[] $buttons List of selectable buttons
+     * @phpstan-param list<Button> $buttons
      *
      * @see MenuForm::handleSelect()
      * @see MenuForm::handleClose()
@@ -46,6 +49,7 @@ class CallbackMenuForm extends MenuForm
         string             $text,
         protected ?Closure $handleSelect = null,
         protected ?Closure $handleClose = null,
+        array              $buttons = [],
     )
     {
         if ($this->handleSelect !== null) {
@@ -59,7 +63,7 @@ class CallbackMenuForm extends MenuForm
             // @formatter:on
         }
 
-        parent::__construct($title, $text);
+        parent::__construct($title, $text, $buttons);
     }
 
     /**

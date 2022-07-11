@@ -43,18 +43,15 @@ class MenuForm extends FormBase
     }
 
     /**
-     * @var Button[] List of selectable buttons
-     * @phpstan-var list<Button>
-     */
-    protected array $buttons = [];
-
-    /**
      * @param string $title Form title
      * @param string $text Message text to display on the form
+     * @param Button[] $buttons List of selectable buttons
+     * @phpstan-param list<Button> $buttons
      */
     public function __construct(
         string           $title,
         protected string $text,
+        protected array  $buttons = [],
     )
     {
         $this->buttons = Utils::arrayToList($this->buttons);
