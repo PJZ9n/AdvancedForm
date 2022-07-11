@@ -34,9 +34,9 @@ class CallbackMenuForm extends MenuForm
      * @param string $title Form title
      * @param string $text Message text to display on the form
      * @param Closure|null $handleSelect Called when the button is selected
-     * @phpstan-param Closure(Player, MenuFormResponse): void $handleSelect
+     * @phpstan-param Closure(Player, MenuFormResponse): void|null $handleSelect
      * @param Closure|null $handleClose Called when the form is closed
-     * @phpstan-param Closure(Player): void $handleClose
+     * @phpstan-param Closure(Player): void|null $handleClose
      *
      * @see MenuForm::handleSelect()
      * @see MenuForm::handleClose()
