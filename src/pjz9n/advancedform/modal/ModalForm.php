@@ -32,7 +32,7 @@ use pocketmine\player\Player;
 use function gettype;
 use function is_bool;
 
-class ModalForm extends FormBase
+abstract class ModalForm extends FormBase
 {
     protected static function getType(): string
     {
