@@ -21,31 +21,18 @@
 
 declare(strict_types=1);
 
-namespace pjz9n\advancedform\button\handler;
+namespace pjz9n\advancedform\button\handler\builtin;
 
-use Closure;
 use pjz9n\advancedform\button\Button;
+use pjz9n\advancedform\button\handler\ButtonHandler;
 use pocketmine\form\Form;
 use pocketmine\player\Player;
-use pocketmine\utils\Utils;
 
-class CallbackButtonHandler implements ButtonHandler
+class ResendButtonHandler implements ButtonHandler
 {
-    /**
-     * @param Closure $callback Called when the button is selected (Returns true if the handle succeeds)
-     * @phpstan-param Closure(Form, Button, Player): bool $callback
-     */
-    public function __construct(
-        protected Closure $callback,
-    )
-    {
-        // @formatter:off
-        Utils::validateCallableSignature(function (Form $form, Button $button, Player $player): bool { return true; }, $this->callback);
-        // @formatter:on
-    }
-
     public function handle(Form $form, Button $button, Player $player): bool
     {
-        return ($this->callback)($form, $button, $player);
+        $player->sendForm($form);
+        return true;
     }
 }

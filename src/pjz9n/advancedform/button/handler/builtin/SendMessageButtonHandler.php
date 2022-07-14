@@ -21,19 +21,35 @@
 
 declare(strict_types=1);
 
-namespace pjz9n\advancedform\button\handler;
+namespace pjz9n\advancedform\button\handler\builtin;
 
 use pjz9n\advancedform\button\Button;
+use pjz9n\advancedform\button\handler\ButtonHandler;
 use pocketmine\form\Form;
 use pocketmine\player\Player;
 
-/**
- * ...do nothing. This means closing the form.
- */
-class IgnoreButtonHandler implements ButtonHandler
+class SendMessageButtonHandler implements ButtonHandler
 {
+    public function __construct(
+        protected string $message,
+    )
+    {
+    }
+
+    public function getMessage(): string
+    {
+        return $this->message;
+    }
+
+    public function setMessage(string $message): self
+    {
+        $this->message = $message;
+        return clone $this;
+    }
+
     public function handle(Form $form, Button $button, Player $player): bool
     {
+        $player->sendMessage($this->message);
         return true;
     }
 }
