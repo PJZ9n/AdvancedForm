@@ -34,7 +34,7 @@ use function is_bool;
 
 class ModalForm extends FormBase
 {
-    static protected function getType(): string
+    protected static function getType(): string
     {
         return FormTypes::MODAL;
     }
