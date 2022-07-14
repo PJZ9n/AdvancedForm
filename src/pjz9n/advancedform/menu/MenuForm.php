@@ -179,7 +179,7 @@ class MenuForm extends FormBase
     }
 
     /**
-     * @return mixed[]
+     * @return string[]|Button[]
      * @phpstan-return array<string, string|Button[]>
      */
     protected function getAdditionalData(): array

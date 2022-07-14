@@ -56,7 +56,7 @@ class ImageButton extends Button
     }
 
     /**
-     * @return mixed[]
+     * @return string[]|ButtonImage[]
      * @phpstan-return array<string, string|ButtonImage>
      */
     public function jsonSerialize(): array
