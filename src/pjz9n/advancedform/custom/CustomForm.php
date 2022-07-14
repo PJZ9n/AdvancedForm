@@ -25,6 +25,7 @@ namespace pjz9n\advancedform\custom;
 
 use InvalidArgumentException;
 use pjz9n\advancedform\custom\element\Element;
+use pjz9n\advancedform\custom\element\handler\ElementHandler;
 use pjz9n\advancedform\custom\response\CustomFormResponse;
 use pjz9n\advancedform\FormBase;
 use pjz9n\advancedform\FormTypes;
@@ -151,6 +152,7 @@ class CustomForm extends FormBase
             throw new FormValidationException("Excepted $elementsCount response(s), got $rawResponseCount response(s)");
         }
         $results = [];
+        $handled = false;
         foreach ($data as $offset => $rawResponse) {
             assert(array_key_exists($offset, $this->elements), "The element is here");
             $element = $this->elements[$offset];
@@ -159,9 +161,15 @@ class CustomForm extends FormBase
             } catch (FormValidationException $exception) {
                 throw new FormValidationException("Element #$offset validation failed: " . $exception->getMessage(), previous: $exception);
             }
-            $results[$element->getName() ?? $offset] = $element->generateResult($rawResponse);
+            $result = $element->generateResult($rawResponse);
+            $results[$element->getName() ?? $offset] = $result;
+            if ($element instanceof ElementHandler && $element->handle($this, $result, $player)) {
+                $handled = true;
+            }
         }
-        $this->handleSubmit($player, new CustomFormResponse($results));
+        if (!$handled) {
+            $this->handleSubmit($player, new CustomFormResponse($results));
+        }
     }
 
     /**
