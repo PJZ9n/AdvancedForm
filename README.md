@@ -10,7 +10,7 @@ It was created with the goal of a highly convenient API. No more worrying about 
 
 ## Features
 
-- [ ] Full validation of form (security)
+- [x] Full validation of form (security)
 - [x] Supports class inheritance style / callback style
 - [x] Supports method chain style
 - [x] Custom handler buttons/elements for DRY

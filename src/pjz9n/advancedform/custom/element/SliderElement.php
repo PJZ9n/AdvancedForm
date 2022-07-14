@@ -29,6 +29,8 @@ use pocketmine\form\FormValidationException;
 use function array_merge;
 use function gettype;
 use function is_float;
+use function round;
+use function strlen;
 
 class SliderElement extends Element
 {
@@ -101,7 +103,10 @@ class SliderElement extends Element
         if ($value < $this->min || $value > $this->max) {
             throw new FormValidationException("Excepted range $this->min ... $this->max, got " . $value);
         }
-        //TODO: Add step validations (float has an error)
+        //TODO: Incomplete processing due to error in float
+        if ($value !== 0 && !ctype_digit((string)(round($value, strlen((string)$this->step)) / $this->step))) {
+            throw new FormValidationException("Value $value is not divisible by step ($this->step)");
+        }
     }
 
     public function generateResult(mixed $value): CustomFormResult
