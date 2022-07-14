@@ -40,6 +40,36 @@ class CallbackCustomForm extends CustomForm
      * @param Element[] $elements
      * @phpstan-param list<Element> $elements
      */
+    public static function create(
+        string   $title,
+        ?Closure $handleSubmit = null,
+        ?Closure $handleClose = null,
+        array    $elements = [],
+    ): self
+    {
+        if ($handleSubmit !== null) {
+            // @formatter:off
+            Utils::validateCallableSignature(function (Player $player, CustomFormResponse $response): void {}, $handleSubmit);
+            // @formatter:on
+        }
+        if ($handleClose !== null) {
+            // @formatter:off
+            Utils::validateCallableSignature(function (Player $player): void {}, $handleClose);
+            // @formatter:on
+        }
+
+        return new self($title, $handleSubmit, $handleClose, $elements);
+    }
+
+    /**
+     * @param string $title Form title
+     * @param Closure|null $handleSubmit Called when the form is submitted
+     * @phpstan-param Closure(Player, CustomFormResponse): void|null $handleSubmit
+     * @param Closure|null $handleClose Called when the form is closed
+     * @phpstan-param Closure(Player): void|null $handleClose
+     * @param Element[] $elements
+     * @phpstan-param list<Element> $elements
+     */
     public function __construct(
         string             $title,
         protected ?Closure $handleSubmit = null,

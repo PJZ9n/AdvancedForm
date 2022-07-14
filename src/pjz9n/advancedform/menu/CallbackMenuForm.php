@@ -44,6 +44,41 @@ class CallbackMenuForm extends MenuForm
      * @see MenuForm::handleSelect()
      * @see MenuForm::handleClose()
      */
+    public static function create(
+        string   $title,
+        string   $text,
+        ?Closure $handleSelect = null,
+        ?Closure $handleClose = null,
+        array    $buttons = [],
+    )
+    {
+        if ($handleSelect !== null) {
+            // @formatter:off
+            Utils::validateCallableSignature(function (Player $player, MenuFormResponse $response): void {}, $handleSelect);
+            // @formatter:on
+        }
+        if ($handleClose !== null) {
+            // @formatter:off
+            Utils::validateCallableSignature(function (Player $player): void {}, $handleClose);
+            // @formatter:on
+        }
+
+        return new self($title, $text, $handleSelect, $handleClose, $buttons);
+    }
+
+    /**
+     * @param string $title Form title
+     * @param string $text Message text to display on the form
+     * @param Closure|null $handleSelect Called when the button is selected
+     * @phpstan-param Closure(Player, MenuFormResponse): void|null $handleSelect
+     * @param Closure|null $handleClose Called when the form is closed
+     * @phpstan-param Closure(Player): void|null $handleClose
+     * @param Button[] $buttons List of selectable buttons
+     * @phpstan-param list<Button> $buttons
+     *
+     * @see MenuForm::handleSelect()
+     * @see MenuForm::handleClose()
+     */
     public function __construct(
         string             $title,
         string             $text,
