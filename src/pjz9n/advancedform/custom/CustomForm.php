@@ -43,6 +43,21 @@ use function is_array;
 
 class CustomForm extends FormBase
 {
+    /**
+     * @param string $title Form title
+     * @param Element[] $elements
+     * @phpstan-param list<Element> $elements
+     */
+    public static function create(
+        string $title,
+        array  $elements = [],
+    ): self
+    {
+        $elements = Utils::arrayToList($elements);
+
+        return new self($title, $elements);
+    }
+
     protected static function getType(): string
     {
         return FormTypes::CUSTOM;

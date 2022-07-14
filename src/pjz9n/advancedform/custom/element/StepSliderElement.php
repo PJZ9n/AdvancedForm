@@ -23,11 +23,28 @@ declare(strict_types=1);
 
 namespace pjz9n\advancedform\custom\element;
 
+use pjz9n\advancedform\util\Utils;
 use function array_map;
 use function array_merge;
 
 class StepSliderElement extends SelectorElement
 {
+    /**
+     * @param SelectorOption[] $options
+     * @phpstan-param list<SelectorOption> $options
+     */
+    public static function create(
+        string  $text,
+        array   $options = [],
+        ?int    $default = null,
+        ?string $name = null,
+    ): self
+    {
+        $options = Utils::arrayToList($options);
+
+        return new self($text, $options, $default, $name);
+    }
+
     public static function getType(): string
     {
         return ElementTypes::STEP_SLIDER;

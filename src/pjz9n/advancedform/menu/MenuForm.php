@@ -37,6 +37,23 @@ use function is_int;
 
 class MenuForm extends FormBase
 {
+    /**
+     * @param string $title Form title
+     * @param string $text Message text to display on the form
+     * @param Button[] $buttons List of selectable buttons
+     * @phpstan-param list<Button> $buttons
+     */
+    public static function create(
+        string $title,
+        string $text,
+        array  $buttons = [],
+    ): self
+    {
+        $buttons = Utils::arrayToList($buttons);
+
+        return new self($title, $text, $buttons);
+    }
+
     protected static function getType(): string
     {
         return FormTypes::MENU;
