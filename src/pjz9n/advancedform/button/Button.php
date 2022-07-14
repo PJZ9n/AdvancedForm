@@ -30,13 +30,13 @@ class Button implements JsonSerializable
 {
     /**
      * @param string $text Label text displayed on the button
-     * @param string|null $name Name to identify the button
      * @param ButtonHandler|null $handler Handler to handle when a button is selected
+     * @param string|null $name Name to identify the button
      */
     public function __construct(
         protected string         $text,
-        protected ?string        $name = null,
         protected ?ButtonHandler $handler = null,
+        protected ?string        $name = null,
     )
     {
     }
@@ -52,17 +52,6 @@ class Button implements JsonSerializable
         return clone $this;
     }
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(?string $name): self
-    {
-        $this->name = $name;
-        return clone $this;
-    }
-
     public function getHandler(): ?ButtonHandler
     {
         return $this->handler;
@@ -71,6 +60,17 @@ class Button implements JsonSerializable
     public function setHandler(?ButtonHandler $handler): self
     {
         $this->handler = $handler;
+        return clone $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
         return clone $this;
     }
 

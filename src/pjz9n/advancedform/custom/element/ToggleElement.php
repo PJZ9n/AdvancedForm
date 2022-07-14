@@ -38,8 +38,8 @@ class ToggleElement extends Element
 
     public function __construct(
         string          $text,
-        ?string         $name = null,
         protected ?bool $default = null,
+        ?string         $name = null,
     )
     {
         parent::__construct($text, $name);

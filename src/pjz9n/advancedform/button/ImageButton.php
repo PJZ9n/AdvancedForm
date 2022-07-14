@@ -32,17 +32,17 @@ class ImageButton extends Button
     /**
      * @param string $text Label text displayed on the button
      * @param ButtonImage $image Button image displayed with the button
-     * @param string|null $name Name to identify the button
      * @param ButtonHandler|null $handler Handler to handle when a button is selected
+     * @param string|null $name Name to identify the button
      */
     public function __construct(
         string                $text,
         protected ButtonImage $image,
-        ?string               $name = null,
         ?ButtonHandler        $handler = null,
+        ?string               $name = null,
     )
     {
-        parent::__construct($text, $name, $handler);
+        parent::__construct($text, $handler, $name);
     }
 
     public function getImage(): ButtonImage

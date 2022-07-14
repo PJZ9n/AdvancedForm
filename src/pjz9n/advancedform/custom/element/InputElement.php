@@ -38,9 +38,9 @@ class InputElement extends Element
 
     public function __construct(
         string            $text,
-        ?string           $name = null,
         protected ?string $placeHolder = null,
         protected ?string $default = null,
+        ?string           $name = null,
     )
     {
         parent::__construct($text, $name);
