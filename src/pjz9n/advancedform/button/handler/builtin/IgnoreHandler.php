@@ -25,6 +25,7 @@ namespace pjz9n\advancedform\button\handler\builtin;
 
 use pjz9n\advancedform\button\Button;
 use pjz9n\advancedform\button\handler\ButtonHandler;
+use pjz9n\advancedform\chain\PlayerFormChainMap;
 use pocketmine\form\Form;
 use pocketmine\player\Player;
 
@@ -35,6 +36,7 @@ class IgnoreHandler implements ButtonHandler
 {
     public function handle(Form $form, Button $button, Player $player): bool
     {
+        PlayerFormChainMap::get($player)->end();
         return true;
     }
 }
