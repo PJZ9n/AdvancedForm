@@ -33,11 +33,6 @@ class StepSliderElement extends SelectorElement
         return ElementTypes::STEP_SLIDER;
     }
 
-    public function __construct(string $text, array $options = [], ?int $default = null, ?string $name = null)
-    {
-        parent::__construct($text, $options, $default, $name);
-    }
-
     /**
      * @return string[]|int[]
      * @phpstan-return array<string, string|int>
