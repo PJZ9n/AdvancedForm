@@ -31,9 +31,14 @@ use pjz9n\advancedform\menu\response\MenuFormResponse;
 use pjz9n\advancedform\util\Utils;
 use pocketmine\form\FormValidationException;
 use pocketmine\player\Player;
+use pocketmine\utils\TextFormat;
 use function array_key_exists;
+use function array_map;
+use function count;
 use function gettype;
+use function implode;
 use function is_int;
+use function str_repeat;
 
 abstract class MenuForm extends FormBase
 {
@@ -185,7 +190,7 @@ abstract class MenuForm extends FormBase
     protected function getAdditionalData(): array
     {
         return [
-            "content" => $this->text,
+            "content" => (count($this->messages) <= 0 ? "" : implode(TextFormat::EOL, array_map(fn(string $message): string => $message . TextFormat::RESET, $this->messages)) . str_repeat(TextFormat::EOL, 2)) . $this->text,
             "buttons" => $this->buttons,
         ];
     }

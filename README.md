@@ -14,7 +14,7 @@ It was created with the goal of a highly convenient API. No more worrying about 
 - [x] Supports class inheritance style / callback style
 - [x] Supports method chain style
 - [x] Custom handler buttons/elements for DRY
-- [ ] Display the message in the form
+- [x] Display the message in the form
 - [ ] Highlight the elements of custom form
 - [ ] Keep content when resend form
 - [ ] Form back support (Easily install the back button/toggle)

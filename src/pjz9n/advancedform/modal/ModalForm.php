@@ -29,8 +29,12 @@ use pjz9n\advancedform\FormTypes;
 use pjz9n\advancedform\modal\response\ModalFormResponse;
 use pocketmine\form\FormValidationException;
 use pocketmine\player\Player;
+use pocketmine\utils\TextFormat;
+use function array_map;
 use function gettype;
+use function implode;
 use function is_bool;
+use function str_repeat;
 
 abstract class ModalForm extends FormBase
 {
@@ -120,7 +124,7 @@ abstract class ModalForm extends FormBase
     protected function getAdditionalData(): array
     {
         return [
-            "content" => $this->text,
+            "content" => (count($this->messages) <= 0 ? "" : implode(TextFormat::EOL, array_map(fn(string $message): string => $message . TextFormat::RESET, $this->messages)) . str_repeat(TextFormat::EOL, 2)) . $this->text,
             "button1" => $this->yesButton->getText(),
             "button2" => $this->noButton->getText(),
         ];

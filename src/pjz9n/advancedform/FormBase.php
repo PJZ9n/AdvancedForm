@@ -23,7 +23,13 @@ declare(strict_types=1);
 
 namespace pjz9n\advancedform;
 
+use InvalidArgumentException;
+use pjz9n\advancedform\util\Utils;
 use pocketmine\form\Form;
+use function array_key_exists;
+use function array_push;
+use function array_search;
+use function array_unshift;
 
 abstract class FormBase implements Form
 {
@@ -43,12 +49,98 @@ abstract class FormBase implements Form
     abstract protected function getAdditionalData(): array;
 
     /**
+     * @var string[]
+     * @phpstan-var list<string>
+     */
+    protected array $messages = [];
+
+    /**
      * @param string $title Form title
      */
     public function __construct(
         protected string $title,
     )
     {
+    }
+
+    /**
+     * Clean the state
+     */
+    public function clean(): self
+    {
+        $this->messages = [];
+        return clone $this;
+    }
+
+    /**
+     * @return string[]
+     * @phpstan-return list<string>
+     */
+    public function getMessages(): array
+    {
+        return $this->messages;
+    }
+
+    /**
+     * @param string[] $messages
+     * @phpstan-param list<string> $messages
+     */
+    public function setMessages(array $messages): self
+    {
+        $this->messages = Utils::arrayToList($messages);
+        return clone $this;
+    }
+
+    public function prependMessage(string $message): self
+    {
+        array_unshift($this->messages, $message);
+        return clone $this;
+    }
+
+    /**
+     * @param string[] $messages
+     * @phpstan-param list<string> $messages
+     */
+    public function prependMessages(array $messages): self
+    {
+        array_unshift($this->messages, ...Utils::arrayToList($messages));
+        return clone $this;
+    }
+
+    public function appendMessage(string $message): self
+    {
+        array_push($this->messages, $message);
+        return clone $this;
+    }
+
+    /**
+     * @param string[] $messages
+     * @phpstan-param list<string> $messages
+     */
+    public function appendMessages(array $messages): self
+    {
+        array_push($this->messages, ...Utils::arrayToList($messages));
+        return clone $this;
+    }
+
+    public function removeMessage(string $message): self
+    {
+        if (($key = array_search($message, $this->messages, true)) === false) {
+            throw new InvalidArgumentException("Message does not exists");
+        }
+        unset($this->messages[$key]);
+        $this->messages = Utils::arrayToList($this->messages);
+        return clone $this;
+    }
+
+    public function removeMessageByOffset(int $offset): self
+    {
+        if (!array_key_exists($offset, $this->messages)) {
+            throw new InvalidArgumentException("Message #$offset does not exists");
+        }
+        unset($this->messages[$offset]);
+        $this->messages = Utils::arrayToList($this->messages);
+        return clone $this;
     }
 
     public function getTitle(): string

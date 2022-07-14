@@ -26,19 +26,24 @@ namespace pjz9n\advancedform\custom;
 use InvalidArgumentException;
 use pjz9n\advancedform\custom\element\Element;
 use pjz9n\advancedform\custom\element\handler\ElementHandler;
+use pjz9n\advancedform\custom\element\Label;
 use pjz9n\advancedform\custom\response\CustomFormResponse;
 use pjz9n\advancedform\FormBase;
 use pjz9n\advancedform\FormTypes;
 use pjz9n\advancedform\util\Utils;
 use pocketmine\form\FormValidationException;
 use pocketmine\player\Player;
+use pocketmine\utils\TextFormat;
 use function array_key_exists;
+use function array_map;
+use function array_merge;
 use function array_push;
 use function array_search;
 use function array_unshift;
 use function assert;
 use function count;
 use function gettype;
+use function implode;
 use function is_array;
 
 abstract class CustomForm extends FormBase
@@ -148,12 +153,17 @@ abstract class CustomForm extends FormBase
         }
         $rawResponseCount = count($data);
         $elementsCount = count($this->elements);
+        $elementsCount += count($this->messages);
         if ($rawResponseCount !== $elementsCount) {
             throw new FormValidationException("Excepted $elementsCount response(s), got $rawResponseCount response(s)");
         }
         $results = [];
         $handled = false;
         foreach ($data as $offset => $rawResponse) {
+            $offset -= count($this->messages);
+            if ($offset < 0) {
+                continue;//skip message label(s)
+            }
             assert(array_key_exists($offset, $this->elements), "The element is here");
             $element = $this->elements[$offset];
             try {
@@ -196,7 +206,10 @@ abstract class CustomForm extends FormBase
     protected function getAdditionalData(): array
     {
         return [
-            "content" => $this->elements,
+            "content" => array_merge(
+                count($this->messages) <= 0 ? [] : [new Label(implode(TextFormat::EOL, array_map(fn(string $message): string => $message . TextFormat::RESET, $this->messages)))],
+                $this->elements,
+            ),
         ];
     }
 }
