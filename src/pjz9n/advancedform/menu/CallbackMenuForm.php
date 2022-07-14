@@ -115,7 +115,7 @@ class CallbackMenuForm extends MenuForm
     public function setHandleSelect(?Closure $handleSelect): self
     {
         $this->handleSelect = $handleSelect;
-        return clone $this;
+        return $this;
     }
 
     /**
@@ -132,7 +132,7 @@ class CallbackMenuForm extends MenuForm
     public function setHandleClose(?Closure $handleClose): self
     {
         $this->handleClose = $handleClose;
-        return clone $this;
+        return $this;
     }
 
     protected function handleSelect(Player $player, MenuFormResponse $response): void

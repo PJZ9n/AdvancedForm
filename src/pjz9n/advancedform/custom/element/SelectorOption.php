@@ -53,7 +53,7 @@ class SelectorOption implements JsonSerializable
     public function setValue(mixed $value): self
     {
         $this->value = $value;
-        return clone $this;
+        return $this;
     }
 
     public function getName(): ?string
@@ -64,7 +64,7 @@ class SelectorOption implements JsonSerializable
     public function setName(?string $name): self
     {
         $this->name = $name;
-        return clone $this;
+        return $this;
     }
 
     public function jsonSerialize(): string

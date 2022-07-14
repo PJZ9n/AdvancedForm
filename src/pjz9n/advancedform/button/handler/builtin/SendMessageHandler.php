@@ -44,7 +44,7 @@ class SendMessageHandler implements ButtonHandler
     public function setMessage(string $message): self
     {
         $this->message = $message;
-        return clone $this;
+        return $this;
     }
 
     public function handle(Form $form, Button $button, Player $player): bool

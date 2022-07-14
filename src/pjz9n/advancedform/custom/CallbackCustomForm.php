@@ -105,7 +105,7 @@ class CallbackCustomForm extends CustomForm
     public function setHandleSubmit(?Closure $handleSubmit): self
     {
         $this->handleSubmit = $handleSubmit;
-        return clone $this;
+        return $this;
     }
 
     /**
@@ -122,7 +122,7 @@ class CallbackCustomForm extends CustomForm
     public function setHandleClose(?Closure $handleClose): self
     {
         $this->handleClose = $handleClose;
-        return clone $this;
+        return $this;
     }
 
     protected function handleSubmit(Player $player, CustomFormResponse $response): void

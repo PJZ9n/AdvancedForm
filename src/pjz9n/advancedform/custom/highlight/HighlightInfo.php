@@ -39,6 +39,6 @@ class HighlightInfo
     public function setPrefix(string $prefix): self
     {
         $this->prefix = $prefix;
-        return clone $this;
+        return $this;
     }
 }

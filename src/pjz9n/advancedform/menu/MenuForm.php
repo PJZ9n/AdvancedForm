@@ -72,7 +72,7 @@ abstract class MenuForm extends FormBase
     public function setText(string $text): self
     {
         $this->text = $text;
-        return clone $this;
+        return $this;
     }
 
     /**
@@ -91,13 +91,13 @@ abstract class MenuForm extends FormBase
     public function setButtons(array $buttons): self
     {
         $this->buttons = Utils::arrayToList($buttons);
-        return clone $this;
+        return $this;
     }
 
     public function prependButton(Button $button): self
     {
         array_unshift($this->buttons, $button);
-        return clone $this;
+        return $this;
     }
 
     /**
@@ -107,13 +107,13 @@ abstract class MenuForm extends FormBase
     public function prependButtons(array $buttons): self
     {
         array_unshift($this->buttons, ...Utils::arrayToList($buttons));
-        return clone $this;
+        return $this;
     }
 
     public function appendButton(Button $button): self
     {
         array_push($this->buttons, $button);
-        return clone $this;
+        return $this;
     }
 
     /**
@@ -123,7 +123,7 @@ abstract class MenuForm extends FormBase
     public function appendButtons(array $buttons): self
     {
         array_push($this->buttons, ...Utils::arrayToList($buttons));
-        return clone $this;
+        return $this;
     }
 
     public function removeButton(Button $button): self
@@ -133,7 +133,7 @@ abstract class MenuForm extends FormBase
         }
         unset($this->buttons[$key]);
         $this->buttons = Utils::arrayToList($this->buttons);
-        return clone $this;
+        return $this;
     }
 
     public function removeButtonByOffset(int $offset): self
@@ -143,7 +143,7 @@ abstract class MenuForm extends FormBase
         }
         unset($this->buttons[$offset]);
         $this->buttons = Utils::arrayToList($this->buttons);
-        return clone $this;
+        return $this;
     }
 
     final public function handleResponse(Player $player, $data): void

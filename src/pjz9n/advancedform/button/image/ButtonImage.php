@@ -48,7 +48,7 @@ class ButtonImage implements JsonSerializable
     public function setType(string $type): self
     {
         $this->type = $type;
-        return clone $this;
+        return $this;
     }
 
     public function getData(): string
@@ -59,7 +59,7 @@ class ButtonImage implements JsonSerializable
     public function setData(string $data): self
     {
         $this->data = $data;
-        return clone $this;
+        return $this;
     }
 
     /**

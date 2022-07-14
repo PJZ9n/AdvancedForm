@@ -59,7 +59,7 @@ class Slider extends Element
     public function setMin(float $min): self
     {
         $this->min = $min;
-        return clone $this;
+        return $this;
     }
 
     public function getMax(): float
@@ -70,7 +70,7 @@ class Slider extends Element
     public function setMax(float $max): self
     {
         $this->max = $max;
-        return clone $this;
+        return $this;
     }
 
     public function getStep(): float
@@ -81,7 +81,7 @@ class Slider extends Element
     public function setStep(float $step): self
     {
         $this->step = $step;
-        return clone $this;
+        return $this;
     }
 
     public function getDefault(): ?float
@@ -92,7 +92,7 @@ class Slider extends Element
     public function setDefault(?float $default): self
     {
         $this->default = $default;
-        return clone $this;
+        return $this;
     }
 
     public function validate(mixed $value): void

@@ -53,7 +53,7 @@ class Toggle extends Element
     public function setDefault(?bool $default): self
     {
         $this->default = $default;
-        return clone $this;
+        return $this;
     }
 
     public function validate(mixed $value): void

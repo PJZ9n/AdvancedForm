@@ -92,7 +92,7 @@ abstract class CustomForm extends FormBase
         } else {
             unset($this->highlightElements[$element]);
         }
-        return clone $this;
+        return $this;
     }
 
     /**
@@ -114,7 +114,7 @@ abstract class CustomForm extends FormBase
     public function clearHighlights(): self
     {
         $this->highlightElements = new WeakMap();
-        return clone $this;
+        return $this;
     }
 
     /**
@@ -125,13 +125,13 @@ abstract class CustomForm extends FormBase
     public function setDefaults(CustomFormResponse $response): self
     {
         $this->setDefaultsResponse = $response;
-        return clone $this;
+        return $this;
     }
 
     public function clearDefaults(): self
     {
         $this->setDefaultsResponse = null;
-        return clone $this;
+        return $this;
     }
 
     /**
@@ -165,13 +165,13 @@ abstract class CustomForm extends FormBase
     public function setElements(array $elements): self
     {
         $this->elements = Utils::arrayToList($elements);
-        return clone $this;
+        return $this;
     }
 
     public function prependElement(Element $element): self
     {
         array_unshift($this->elements, $element);
-        return clone $this;
+        return $this;
     }
 
     /**
@@ -181,13 +181,13 @@ abstract class CustomForm extends FormBase
     public function prependElements(array $elements): self
     {
         array_unshift($this->elements, ...Utils::arrayToList($elements));
-        return clone $this;
+        return $this;
     }
 
     public function appendElement(Element $element): self
     {
         array_push($this->elements, $element);
-        return clone $this;
+        return $this;
     }
 
     /**
@@ -197,7 +197,7 @@ abstract class CustomForm extends FormBase
     public function appendElements(array $elements): self
     {
         array_push($this->elements, ...Utils::arrayToList($elements));
-        return clone $this;
+        return $this;
     }
 
     public function removeElement(Element $element): self
@@ -207,7 +207,7 @@ abstract class CustomForm extends FormBase
         }
         unset($this->elements[$key]);
         $this->elements = Utils::arrayToList($this->elements);
-        return clone $this;
+        return $this;
     }
 
     public function removeElementByOffset(int $offset): self
@@ -217,7 +217,7 @@ abstract class CustomForm extends FormBase
         }
         unset($this->elements[$offset]);
         $this->elements = Utils::arrayToList($this->elements);
-        return clone $this;
+        return $this;
     }
 
     public function clean(): self
@@ -226,7 +226,7 @@ abstract class CustomForm extends FormBase
         $this->clearDefaults();
 
         parent::clean();
-        return clone $this;
+        return $this;
     }
 
     final public function handleResponse(Player $player, $data): void

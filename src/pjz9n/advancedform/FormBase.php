@@ -69,7 +69,7 @@ abstract class FormBase implements Form
     public function clean(): self
     {
         $this->messages = [];
-        return clone $this;
+        return $this;
     }
 
     /**
@@ -88,13 +88,13 @@ abstract class FormBase implements Form
     public function setMessages(array $messages): self
     {
         $this->messages = Utils::arrayToList($messages);
-        return clone $this;
+        return $this;
     }
 
     public function prependMessage(string $message): self
     {
         array_unshift($this->messages, $message);
-        return clone $this;
+        return $this;
     }
 
     /**
@@ -104,13 +104,13 @@ abstract class FormBase implements Form
     public function prependMessages(array $messages): self
     {
         array_unshift($this->messages, ...Utils::arrayToList($messages));
-        return clone $this;
+        return $this;
     }
 
     public function appendMessage(string $message): self
     {
         array_push($this->messages, $message);
-        return clone $this;
+        return $this;
     }
 
     /**
@@ -120,7 +120,7 @@ abstract class FormBase implements Form
     public function appendMessages(array $messages): self
     {
         array_push($this->messages, ...Utils::arrayToList($messages));
-        return clone $this;
+        return $this;
     }
 
     public function removeMessage(string $message): self
@@ -130,7 +130,7 @@ abstract class FormBase implements Form
         }
         unset($this->messages[$key]);
         $this->messages = Utils::arrayToList($this->messages);
-        return clone $this;
+        return $this;
     }
 
     public function removeMessageByOffset(int $offset): self
@@ -140,7 +140,7 @@ abstract class FormBase implements Form
         }
         unset($this->messages[$offset]);
         $this->messages = Utils::arrayToList($this->messages);
-        return clone $this;
+        return $this;
     }
 
     public function getTitle(): string
@@ -151,7 +151,7 @@ abstract class FormBase implements Form
     public function setTitle(string $title): self
     {
         $this->title = $title;
-        return clone $this;
+        return $this;
     }
 
     /**

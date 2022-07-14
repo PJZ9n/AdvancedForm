@@ -90,7 +90,7 @@ class CallbackModalForm extends ModalForm
     public function setHandleSelect(?Closure $handleSelect): self
     {
         $this->handleSelect = $handleSelect;
-        return clone $this;
+        return $this;
     }
 
     protected function handleSelect(Player $player, ModalFormResponse $response): void

@@ -70,13 +70,13 @@ abstract class Selector extends Element
     public function setOptions(array $options): self
     {
         $this->options = Utils::arrayToList($options);
-        return clone $this;
+        return $this;
     }
 
     public function prependOption(SelectorOption $option): self
     {
         array_unshift($this->options, $option);
-        return clone $this;
+        return $this;
     }
 
     /**
@@ -86,13 +86,13 @@ abstract class Selector extends Element
     public function prependOptions(array $options): self
     {
         array_unshift($this->options, ...Utils::arrayToList($options));
-        return clone $this;
+        return $this;
     }
 
     public function appendOption(SelectorOption $option): self
     {
         array_push($this->options, $option);
-        return clone $this;
+        return $this;
     }
 
     /**
@@ -102,7 +102,7 @@ abstract class Selector extends Element
     public function appendOptions(array $options): self
     {
         array_push($this->options, ...Utils::arrayToList($options));
-        return clone $this;
+        return $this;
     }
 
     public function removeOption(SelectorOption $option): self
@@ -112,7 +112,7 @@ abstract class Selector extends Element
         }
         unset($this->options[$key]);
         $this->options = Utils::arrayToList($this->options);
-        return clone $this;
+        return $this;
     }
 
     public function removeOptionByOffset(int $offset): self
@@ -122,7 +122,7 @@ abstract class Selector extends Element
         }
         unset($this->options[$offset]);
         $this->options = Utils::arrayToList($this->options);
-        return clone $this;
+        return $this;
     }
 
     public function getDefault(): ?int
@@ -133,7 +133,7 @@ abstract class Selector extends Element
     public function setDefault(?int $default): self
     {
         $this->default = $default;
-        return clone $this;
+        return $this;
     }
 
     public function validate(mixed $value): void

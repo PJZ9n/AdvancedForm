@@ -53,7 +53,7 @@ class ImageButton extends Button
     public function setImage(ButtonImage $image): self
     {
         $this->image = $image;
-        return clone $this;
+        return $this;
     }
 
     /**

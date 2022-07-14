@@ -71,7 +71,7 @@ abstract class ModalForm extends FormBase
     public function setText(string $text): self
     {
         $this->text = $text;
-        return clone $this;
+        return $this;
     }
 
     public function getYesButton(): Button
@@ -82,7 +82,7 @@ abstract class ModalForm extends FormBase
     public function setYesButton(Button $yesButton): self
     {
         $this->yesButton = $yesButton;
-        return clone $this;
+        return $this;
     }
 
     public function getNoButton(): Button
@@ -93,7 +93,7 @@ abstract class ModalForm extends FormBase
     public function setNoButton(Button $noButton): self
     {
         $this->noButton = $noButton;
-        return clone $this;
+        return $this;
     }
 
     final public function handleResponse(Player $player, $data): void

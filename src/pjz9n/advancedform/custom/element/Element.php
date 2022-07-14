@@ -64,7 +64,7 @@ abstract class Element implements JsonSerializable
     public function setText(string $text): self
     {
         $this->text = $text;
-        return clone $this;
+        return $this;
     }
 
     public function getName(): ?string
@@ -75,7 +75,7 @@ abstract class Element implements JsonSerializable
     public function setName(?string $name): self
     {
         $this->name = $name;
-        return clone $this;
+        return $this;
     }
 
     /**

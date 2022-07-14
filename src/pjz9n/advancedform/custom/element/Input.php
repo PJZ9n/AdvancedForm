@@ -54,7 +54,7 @@ class Input extends Element
     public function setPlaceHolder(?string $placeHolder): self
     {
         $this->placeHolder = $placeHolder;
-        return clone $this;
+        return $this;
     }
 
     public function getDefault(): ?string
@@ -65,7 +65,7 @@ class Input extends Element
     public function setDefault(?string $default): self
     {
         $this->default = $default;
-        return clone $this;
+        return $this;
     }
 
     public function validate(mixed $value): void
