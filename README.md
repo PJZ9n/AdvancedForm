@@ -2,6 +2,8 @@
 
 # Work in progress: This is under development and is not perfect. The API is not backwards compatible.
 
+We welcome your contributions. Tell us about bugs and your thoughts! And let's complete it!
+
 ## Overview
 
 Multi-functional and easy-to-use form framework
