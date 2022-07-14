@@ -108,7 +108,7 @@ class CustomFormResponse
 
     public function getResultByOffset(int $offset): CustomFormResult
     {
-        return $this->results[$offset] ?? throw new InvalidArgumentException("Result #$offset not exists");
+        return $this->resultsList[$offset] ?? throw new InvalidArgumentException("Result #$offset not exists");
     }
 
     public function getInputResultByOffset(int $offset): InputResult
