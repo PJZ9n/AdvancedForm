@@ -26,7 +26,11 @@ namespace pjz9n\advancedform\custom;
 use InvalidArgumentException;
 use pjz9n\advancedform\custom\element\Element;
 use pjz9n\advancedform\custom\element\handler\ElementHandler;
+use pjz9n\advancedform\custom\element\Input;
 use pjz9n\advancedform\custom\element\Label;
+use pjz9n\advancedform\custom\element\Selector;
+use pjz9n\advancedform\custom\element\Slider;
+use pjz9n\advancedform\custom\element\Toggle;
 use pjz9n\advancedform\custom\response\CustomFormResponse;
 use pjz9n\advancedform\FormBase;
 use pjz9n\advancedform\FormTypes;
@@ -52,6 +56,8 @@ abstract class CustomForm extends FormBase
     {
         return FormTypes::CUSTOM;
     }
+
+    protected ?CustomFormResponse $setDefaultsResponse = null;
 
     /**
      * @param string $title Form title
@@ -80,6 +86,23 @@ abstract class CustomForm extends FormBase
             throw new InvalidArgumentException("Element $name not exists");
         }
         $element->setHighlight();
+        return clone $this;
+    }
+
+    /**
+     * Sets the default value for the element based on the response
+     * This is useful if you want to resubmit the same form.
+     * Form data not reset while player is filling
+     */
+    public function setDefaults(CustomFormResponse $response): self
+    {
+        $this->setDefaultsResponse = $response;
+        return clone $this;
+    }
+
+    public function clearDefaults(): self
+    {
+        $this->setDefaultsResponse = null;
         return clone $this;
     }
 
@@ -176,6 +199,7 @@ abstract class CustomForm extends FormBase
                 $element->setHighlight(false);
             }
         }
+        $this->clearDefaults();
 
         parent::clean();
         return clone $this;
@@ -247,10 +271,26 @@ abstract class CustomForm extends FormBase
      */
     protected function getAdditionalData(): array
     {
+        $elements = [];
+        if ($this->setDefaultsResponse === null) {
+            $elements = $this->elements;
+        } else {
+            foreach ($this->elements as $offset => $element) {
+                switch (true) {
+                    case $element instanceof Input:
+                    case $element instanceof Selector:
+                    case $element instanceof Slider:
+                    case $element instanceof Toggle:
+                        $element->setDefault($this->setDefaultsResponse->getResultByOffset($offset)->getRawValue());
+                        break;
+                }
+                $elements[] = clone $element;
+            }
+        }
         return [
             "content" => array_merge(
                 count($this->messages) <= 0 ? [] : [new Label(implode(TextFormat::EOL, array_map(fn(string $message): string => $message . TextFormat::RESET, $this->messages)))],
-                $this->elements,
+                $elements,
             ),
         ];
     }

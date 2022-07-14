@@ -16,7 +16,7 @@ It was created with the goal of a highly convenient API. No more worrying about 
 - [x] Custom handler buttons/elements for DRY
 - [x] Display the message in the form
 - [x] Highlight the elements of custom form
-- [ ] Keep content when resend form
+- [x] Keep content when resend form
 - [ ] Form back support (Easily install the back button/toggle)
 - [x] Numerical validation of Input
 - [x] Strict type support
