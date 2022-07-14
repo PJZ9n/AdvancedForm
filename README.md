@@ -26,6 +26,8 @@ It was created with the goal of a highly convenient API. No more worrying about 
 
 ## How to use
 
+[ExamplePlugin (AdminStick)](https://github.com/PJZ9n/AdminStick)
+
 ### Class inheritance style
 
 You can create a constructor for every class inheritance style form.
