@@ -79,7 +79,7 @@ class ExampleForm extends CustomForm
 
 #### MenuForm
 
-- `text`: Message text to display on the form
+- `text`: Message text to display on the form (optional)
 - `buttons`: List of selectable buttons (optional)
 
 ```php
@@ -88,7 +88,7 @@ use pjz9n\advancedform\menu\MenuForm;
 public function MenuForm::__construct(string $title, string $text, array $buttons = [])
 ```
 
-- `handleSelect`: Called when the button is selected
+- `handleSelect`: Called when the button is selected (optional)
 - `handleClose`: Called when the form is closed (optional)
 
 ```php
@@ -135,7 +135,7 @@ use pjz9n\advancedform\modal\ModalForm;
 public function ModalForm::__construct(string $title, string $text, ?Button $yesButton = null, ?Button $noButton)
 ```
 
-- `handleSelect`: Called when the button is selected
+- `handleSelect`: Called when the button is selected (optional)
 
 ```php
 use pjz9n\advancedform\modal\ModalForm;
