@@ -36,6 +36,7 @@ class Button implements JsonSerializable
     public function __construct(
         protected string         $text,
         protected ?ButtonHandler $handler = null,
+        protected mixed          $value = null,
         protected ?string        $name = null,
     )
     {
@@ -60,6 +61,17 @@ class Button implements JsonSerializable
     public function setHandler(?ButtonHandler $handler): self
     {
         $this->handler = $handler;
+        return $this;
+    }
+
+    public function getValue(): mixed
+    {
+        return $this->value;
+    }
+
+    public function setValue(mixed $value): self
+    {
+        $this->value = $value;
         return $this;
     }
 

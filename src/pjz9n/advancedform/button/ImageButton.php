@@ -39,10 +39,11 @@ class ImageButton extends Button
         string                $text,
         protected ButtonImage $image,
         ?ButtonHandler        $handler = null,
+        mixed                 $value = null,
         ?string               $name = null,
     )
     {
-        parent::__construct($text, $handler, $name);
+        parent::__construct($text, $handler, $value, $name);
     }
 
     public function getImage(): ButtonImage
