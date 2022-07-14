@@ -23,19 +23,19 @@ declare(strict_types=1);
 
 namespace pjz9n\advancedform\custom\result;
 
-use pjz9n\advancedform\custom\element\SliderElement;
+use pjz9n\advancedform\custom\element\Slider;
 
 class SliderResult extends CustomFormResult
 {
     public function __construct(
-        protected SliderElement $element,
-        mixed                   $rawValue,
+        protected Slider $element,
+        mixed            $rawValue,
     )
     {
         parent::__construct($rawValue);
     }
 
-    public function getElement(): SliderElement
+    public function getElement(): Slider
     {
         return $this->element;
     }

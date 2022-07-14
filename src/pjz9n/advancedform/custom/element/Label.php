@@ -21,18 +21,28 @@
 
 declare(strict_types=1);
 
-namespace pjz9n\advancedform\button\handler\builtin;
+namespace pjz9n\advancedform\custom\element;
 
-use pjz9n\advancedform\button\Button;
-use pjz9n\advancedform\button\handler\ButtonHandler;
-use pocketmine\form\Form;
-use pocketmine\player\Player;
+use pjz9n\advancedform\custom\result\CustomFormResult;
+use pocketmine\form\FormValidationException;
+use function gettype;
 
-class ResendButtonHandler implements ButtonHandler
+class Label extends Element
 {
-    public function handle(Form $form, Button $button, Player $player): bool
+    public static function getType(): string
     {
-        $player->sendForm($form);
-        return true;
+        return ElementTypes::LABEL;
+    }
+
+    public function generateResult(mixed $value): CustomFormResult
+    {
+        return new CustomFormResult($value);
+    }
+
+    public function validate(mixed $value): void
+    {
+        if ($value !== null) {
+            throw new FormValidationException("Excepted null, got " . gettype($value));
+        }
     }
 }

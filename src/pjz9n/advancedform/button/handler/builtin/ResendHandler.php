@@ -28,28 +28,11 @@ use pjz9n\advancedform\button\handler\ButtonHandler;
 use pocketmine\form\Form;
 use pocketmine\player\Player;
 
-class SendMessageButtonHandler implements ButtonHandler
+class ResendHandler implements ButtonHandler
 {
-    public function __construct(
-        protected string $message,
-    )
-    {
-    }
-
-    public function getMessage(): string
-    {
-        return $this->message;
-    }
-
-    public function setMessage(string $message): self
-    {
-        $this->message = $message;
-        return clone $this;
-    }
-
     public function handle(Form $form, Button $button, Player $player): bool
     {
-        $player->sendMessage($this->message);
+        $player->sendForm($form);
         return true;
     }
 }

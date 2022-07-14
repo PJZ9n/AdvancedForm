@@ -21,32 +21,24 @@
 
 declare(strict_types=1);
 
-namespace pjz9n\advancedform\button\handler\builtin;
+namespace pjz9n\advancedform\custom\element\handler\builtin;
 
-use Closure;
-use pjz9n\advancedform\button\Button;
-use pjz9n\advancedform\button\handler\ButtonHandler;
+use pjz9n\advancedform\custom\element\handler\ElementHandler;
+use pjz9n\advancedform\custom\element\Toggle;
+use pjz9n\advancedform\custom\result\CustomFormResult;
+use pjz9n\advancedform\custom\result\ToggleResult;
 use pocketmine\form\Form;
 use pocketmine\player\Player;
-use pocketmine\utils\Utils;
 
-class CallbackButtonHandler implements ButtonHandler
+class ResendToggle extends Toggle implements ElementHandler
 {
-    /**
-     * @param Closure $callback Called when the button is selected (Returns true if the handle succeeds)
-     * @phpstan-param Closure(Form, Button, Player): bool $callback
-     */
-    public function __construct(
-        protected Closure $callback,
-    )
+    public function handle(Form $form, CustomFormResult $result, Player $player): bool
     {
-        // @formatter:off
-        Utils::validateCallableSignature(function (Form $form, Button $button, Player $player): bool { return true; }, $this->callback);
-        // @formatter:on
-    }
-
-    public function handle(Form $form, Button $button, Player $player): bool
-    {
-        return ($this->callback)($form, $button, $player);
+        assert($result instanceof ToggleResult);
+        if ($result->getValue()) {
+            $player->sendForm($form);
+            return true;
+        }
+        return false;
     }
 }

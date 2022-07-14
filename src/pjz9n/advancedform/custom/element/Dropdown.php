@@ -27,7 +27,7 @@ use pjz9n\advancedform\util\Utils;
 use function array_map;
 use function array_merge;
 
-class DropdownElement extends SelectorElement
+class Dropdown extends Selector
 {
     /**
      * @param SelectorOption[] $options

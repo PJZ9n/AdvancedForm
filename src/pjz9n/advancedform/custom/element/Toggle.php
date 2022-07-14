@@ -29,7 +29,7 @@ use pocketmine\form\FormValidationException;
 use function gettype;
 use function is_bool;
 
-class ToggleElement extends Element
+class Toggle extends Element
 {
     public static function getType(): string
     {

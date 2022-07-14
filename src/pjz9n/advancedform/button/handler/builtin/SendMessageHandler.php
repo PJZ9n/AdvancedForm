@@ -21,28 +21,35 @@
 
 declare(strict_types=1);
 
-namespace pjz9n\advancedform\custom\element;
+namespace pjz9n\advancedform\button\handler\builtin;
 
-use pjz9n\advancedform\custom\result\CustomFormResult;
-use pocketmine\form\FormValidationException;
-use function gettype;
+use pjz9n\advancedform\button\Button;
+use pjz9n\advancedform\button\handler\ButtonHandler;
+use pocketmine\form\Form;
+use pocketmine\player\Player;
 
-class LabelElement extends Element
+class SendMessageHandler implements ButtonHandler
 {
-    public static function getType(): string
+    public function __construct(
+        protected string $message,
+    )
     {
-        return ElementTypes::LABEL;
     }
 
-    public function generateResult(mixed $value): CustomFormResult
+    public function getMessage(): string
     {
-        return new CustomFormResult($value);
+        return $this->message;
     }
 
-    public function validate(mixed $value): void
+    public function setMessage(string $message): self
     {
-        if ($value !== null) {
-            throw new FormValidationException("Excepted null, got " . gettype($value));
-        }
+        $this->message = $message;
+        return clone $this;
+    }
+
+    public function handle(Form $form, Button $button, Player $player): bool
+    {
+        $player->sendMessage($this->message);
+        return true;
     }
 }

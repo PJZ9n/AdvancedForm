@@ -29,7 +29,7 @@ use pocketmine\form\FormValidationException;
 use function gettype;
 use function is_string;
 
-class InputElement extends Element
+class Input extends Element
 {
     public static function getType(): string
     {

@@ -36,7 +36,7 @@ use function array_unshift;
 use function gettype;
 use function is_int;
 
-abstract class SelectorElement extends Element
+abstract class Selector extends Element
 {
     /**
      * @param SelectorOption[] $options

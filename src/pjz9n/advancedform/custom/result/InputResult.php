@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace pjz9n\advancedform\custom\result;
 
-use pjz9n\advancedform\custom\element\InputElement;
+use pjz9n\advancedform\custom\element\Input;
 use pjz9n\advancedform\custom\result\exception\InvalidResponseException;
 use function fmod;
 use function is_numeric;
@@ -31,14 +31,14 @@ use function is_numeric;
 class InputResult extends CustomFormResult
 {
     public function __construct(
-        protected InputElement $element,
-        mixed                  $rawValue,
+        protected Input $element,
+        mixed           $rawValue,
     )
     {
         parent::__construct($rawValue);
     }
 
-    public function getElement(): InputElement
+    public function getElement(): Input
     {
         return $this->element;
     }

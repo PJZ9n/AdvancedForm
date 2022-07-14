@@ -31,7 +31,7 @@ use pocketmine\player\Player;
 /**
  * ...do nothing. This means closing the form.
  */
-class IgnoreButtonHandler implements ButtonHandler
+class IgnoreHandler implements ButtonHandler
 {
     public function handle(Form $form, Button $button, Player $player): bool
     {

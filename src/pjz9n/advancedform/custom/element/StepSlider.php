@@ -27,7 +27,7 @@ use pjz9n\advancedform\util\Utils;
 use function array_map;
 use function array_merge;
 
-class StepSliderElement extends SelectorElement
+class StepSlider extends Selector
 {
     /**
      * @param SelectorOption[] $options

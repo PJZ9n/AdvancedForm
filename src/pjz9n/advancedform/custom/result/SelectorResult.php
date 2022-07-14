@@ -23,20 +23,20 @@ declare(strict_types=1);
 
 namespace pjz9n\advancedform\custom\result;
 
-use pjz9n\advancedform\custom\element\SelectorElement;
+use pjz9n\advancedform\custom\element\Selector;
 use pjz9n\advancedform\custom\element\SelectorOption;
 
 class SelectorResult extends CustomFormResult
 {
     public function __construct(
-        protected SelectorElement $element,
-        mixed                     $rawValue,
+        protected Selector $element,
+        mixed              $rawValue,
     )
     {
         parent::__construct($rawValue);
     }
 
-    public function getElement(): SelectorElement
+    public function getElement(): Selector
     {
         return $this->element;
     }

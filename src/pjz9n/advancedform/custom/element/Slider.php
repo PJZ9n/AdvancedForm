@@ -32,7 +32,7 @@ use function is_float;
 use function round;
 use function strlen;
 
-class SliderElement extends Element
+class Slider extends Element
 {
     public static function getType(): string
     {

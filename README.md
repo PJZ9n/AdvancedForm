@@ -49,8 +49,8 @@ public function CustomForm::__construct(string $title, array $elements = [])
 
 ```php
 use pjz9n\advancedform\custom\CustomForm;
-use pjz9n\advancedform\custom\element\InputElement;
-use pjz9n\advancedform\custom\element\ToggleElement;
+use pjz9n\advancedform\custom\element\Input;
+use pjz9n\advancedform\custom\element\Toggle;
 use pjz9n\advancedform\custom\response\CustomFormResponse;
 use pocketmine\player\Player;
 
@@ -60,8 +60,8 @@ class ExampleForm extends CustomForm
     {
         parent::__construct("This is title");
         $this
-            ->appendElement(new InputElement("test input", name: "test_input"))
-            ->appendElement(new ToggleElement("test toggle", name: "test_toggle"));
+            ->appendElement(new Input("test input", name: "test_input"))
+            ->appendElement(new Toggle("test toggle", name: "test_toggle"));
     }
 
     protected function handleSubmit(Player $player, CustomFormResponse $response): void
@@ -176,8 +176,8 @@ Example code
 
 ```php
 use pjz9n\advancedform\custom\CallbackCustomForm;
-use pjz9n\advancedform\custom\element\InputElement;
-use pjz9n\advancedform\custom\element\ToggleElement;
+use pjz9n\advancedform\custom\element\Input;
+use pjz9n\advancedform\custom\element\Toggle;
 use pjz9n\advancedform\custom\response\CustomFormResponse;
 use pocketmine\player\Player;
 
@@ -187,8 +187,8 @@ CallbackCustomForm::create("This is title", function (Player $player, CustomForm
 }, function (Player $player): void {
     $player->sendMessage("bye!");
 })
-    ->appendElement(new InputElement("test input", name: "test_input"))
-    ->appendElement(new ToggleElement("test toggle", name: "test_toggle"));
+    ->appendElement(new Input("test input", name: "test_input"))
+    ->appendElement(new Toggle("test toggle", name: "test_toggle"));
 ```
 
 #### MenuForm

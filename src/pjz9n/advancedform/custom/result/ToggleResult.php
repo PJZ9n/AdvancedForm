@@ -23,19 +23,19 @@ declare(strict_types=1);
 
 namespace pjz9n\advancedform\custom\result;
 
-use pjz9n\advancedform\custom\element\ToggleElement;
+use pjz9n\advancedform\custom\element\Toggle;
 
 class ToggleResult extends CustomFormResult
 {
     public function __construct(
-        protected ToggleElement $element,
-        mixed                   $rawValue,
+        protected Toggle $element,
+        mixed            $rawValue,
     )
     {
         parent::__construct($rawValue);
     }
 
-    public function getElement(): ToggleElement
+    public function getElement(): Toggle
     {
         return $this->element;
     }
