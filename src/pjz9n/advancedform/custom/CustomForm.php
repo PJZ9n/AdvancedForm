@@ -54,6 +54,9 @@ use function is_array;
 
 abstract class CustomForm extends FormBase
 {
+    public const DEFAULT_HIGHLIGHT_PREFIX = TextFormat::BOLD . TextFormat::YELLOW;
+    public const DEFAULT_ERROR_MESSAGE_PREFIX = TextFormat::RED;
+
     protected static function getType(): string
     {
         return FormTypes::CUSTOM;
@@ -83,9 +86,36 @@ abstract class CustomForm extends FormBase
     }
 
     /**
+     * Add error messages and error highlights
+     * This is a simple wrapper method
+     */
+    public function addError(Element $element, string $message, string $messagePrefix = self::DEFAULT_ERROR_MESSAGE_PREFIX, string $highlightPrefix = self::DEFAULT_HIGHLIGHT_PREFIX): self
+    {
+        $this->appendMessage($messagePrefix . $message);
+        $this->setHighlight($element, prefix: $highlightPrefix);
+        return $this;
+    }
+
+    /**
+     * @see CustomForm::addError()
+     */
+    public function addErrorByName(string $name, string $message, string $messagePrefix = self::DEFAULT_ERROR_MESSAGE_PREFIX, string $highlightPrefix = self::DEFAULT_HIGHLIGHT_PREFIX): self
+    {
+        return $this->addError($this->getElement($name) ?? throw new InvalidArgumentException("Element $name does not exists"), $message, $messagePrefix, $highlightPrefix);
+    }
+
+    /**
+     * @see CustomForm::addError()
+     */
+    public function addErrorByOffset(int $offset, string $message, string $messagePrefix = self::DEFAULT_ERROR_MESSAGE_PREFIX, string $highlightPrefix = self::DEFAULT_HIGHLIGHT_PREFIX): self
+    {
+        return $this->addError($this->getElementByOffset($offset) ?? throw new InvalidArgumentException("Element #$offset does not exists"), $message, $messagePrefix, $highlightPrefix);
+    }
+
+    /**
      * Highlight the element
      */
-    public function setHighlight(Element $element, bool $highlight = true, string $prefix = TextFormat::BOLD . TextFormat::YELLOW): self
+    public function setHighlight(Element $element, bool $highlight = true, string $prefix = self::DEFAULT_HIGHLIGHT_PREFIX): self
     {
         if ($highlight) {
             $this->highlightElements[$element] = new HighlightInfo($prefix);
@@ -98,7 +128,7 @@ abstract class CustomForm extends FormBase
     /**
      * @see CustomForm::setHighlight()
      */
-    public function setHighlightByName(string $name, bool $highlight = true, string $prefix = TextFormat::BOLD . TextFormat::YELLOW): self
+    public function setHighlightByName(string $name, bool $highlight = true, string $prefix = self::DEFAULT_HIGHLIGHT_PREFIX): self
     {
         return $this->setHighlight($this->getElement($name) ?? throw new InvalidArgumentException("Element $name does not exists"), $highlight, $prefix);
     }
@@ -106,7 +136,7 @@ abstract class CustomForm extends FormBase
     /**
      * @see CustomForm::setHighlight()
      */
-    public function setHighlightByOffset(int $offset, bool $highlight = true, string $prefix = TextFormat::BOLD . TextFormat::YELLOW): self
+    public function setHighlightByOffset(int $offset, bool $highlight = true, string $prefix = self::DEFAULT_HIGHLIGHT_PREFIX): self
     {
         return $this->setHighlight($this->getElementByOffset($offset) ?? throw new InvalidArgumentException("Element #$offset does not exists"), $highlight, $prefix);
     }
