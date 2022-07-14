@@ -31,6 +31,7 @@ use pjz9n\advancedform\custom\element\Label;
 use pjz9n\advancedform\custom\element\Selector;
 use pjz9n\advancedform\custom\element\Slider;
 use pjz9n\advancedform\custom\element\Toggle;
+use pjz9n\advancedform\custom\highlight\HighlightInfo;
 use pjz9n\advancedform\custom\response\CustomFormResponse;
 use pjz9n\advancedform\FormBase;
 use pjz9n\advancedform\FormTypes;
@@ -38,6 +39,7 @@ use pjz9n\advancedform\util\Utils;
 use pocketmine\form\FormValidationException;
 use pocketmine\player\Player;
 use pocketmine\utils\TextFormat;
+use WeakMap;
 use function array_key_exists;
 use function array_map;
 use function array_merge;
@@ -60,6 +62,11 @@ abstract class CustomForm extends FormBase
     protected ?CustomFormResponse $setDefaultsResponse = null;
 
     /**
+     * @phpstan-var WeakMap<Element, HighlightInfo>
+     */
+    protected WeakMap $highlightElements;
+
+    /**
      * @param string $title Form title
      * @param Element[] $elements
      * @phpstan-param list<Element> $elements
@@ -69,23 +76,44 @@ abstract class CustomForm extends FormBase
         protected array $elements = [],
     )
     {
+        $this->highlightElements = new WeakMap();
         $this->elements = Utils::arrayToList($this->elements);
 
         parent::__construct($title);
     }
 
     /**
-     * Element highlight shortcut
-     *
-     * @see Element::setHighlight()
+     * Highlight the element
      */
-    public function setHighlight(string $name): self
+    public function setHighlight(Element $element, bool $highlight = true, string $prefix = TextFormat::BOLD . TextFormat::YELLOW): self
     {
-        $element = $this->getElement($name);
-        if ($element === null) {
-            throw new InvalidArgumentException("Element $name not exists");
+        if ($highlight) {
+            $this->highlightElements[$element] = new HighlightInfo($prefix);
+        } else {
+            unset($this->highlightElements[$element]);
         }
-        $element->setHighlight();
+        return clone $this;
+    }
+
+    /**
+     * @see CustomForm::setHighlight()
+     */
+    public function setHighlightByName(string $name, bool $highlight = true, string $prefix = TextFormat::BOLD . TextFormat::YELLOW): self
+    {
+        return $this->setHighlight($this->getElement($name) ?? throw new InvalidArgumentException("Element $name does not exists"), $highlight, $prefix);
+    }
+
+    /**
+     * @see CustomForm::setHighlight()
+     */
+    public function setHighlightByOffset(int $offset, bool $highlight = true, string $prefix = TextFormat::BOLD . TextFormat::YELLOW): self
+    {
+        return $this->setHighlight($this->getElementByOffset($offset) ?? throw new InvalidArgumentException("Element #$offset does not exists"), $highlight, $prefix);
+    }
+
+    public function clearHighlights(): self
+    {
+        $this->highlightElements = new WeakMap();
         return clone $this;
     }
 
@@ -194,11 +222,7 @@ abstract class CustomForm extends FormBase
 
     public function clean(): self
     {
-        foreach ($this->elements as $element) {
-            if ($element->isHighlight()) {
-                $element->setHighlight(false);
-            }
-        }
+        $this->clearHighlights();
         $this->clearDefaults();
 
         parent::clean();
@@ -272,20 +296,25 @@ abstract class CustomForm extends FormBase
     protected function getAdditionalData(): array
     {
         $elements = [];
-        if ($this->setDefaultsResponse === null) {
-            $elements = $this->elements;
-        } else {
-            foreach ($this->elements as $offset => $element) {
+        foreach ($this->elements as $offset => $element) {
+            if (isset($this->highlightElements[$element])) {
+                /** @var HighlightInfo $info */
+                $info = $this->highlightElements[$element];
+                $element = clone $element;
+                $element->setText($info->getPrefix() . $element->getText());
+            }
+            if ($this->setDefaultsResponse !== null) {
                 switch (true) {
                     case $element instanceof Input:
                     case $element instanceof Selector:
                     case $element instanceof Slider:
                     case $element instanceof Toggle:
+                        $element = clone $element;
                         $element->setDefault($this->setDefaultsResponse->getResultByOffset($offset)->getRawValue());
                         break;
                 }
-                $elements[] = clone $element;
             }
+            $elements[] = $element;
         }
         return [
             "content" => array_merge(
