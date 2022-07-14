@@ -38,6 +38,29 @@ class CallbackModalForm extends ModalForm
      *
      * @see ModalForm::handleSelect()
      */
+    public static function create(
+        string   $title,
+        string   $text,
+        ?Closure $handleSelect = null,
+    ): self
+    {
+        if ($handleSelect !== null) {
+            // @formatter:off
+            Utils::validateCallableSignature(function (Player $player, ModalFormResponse $response): void {}, $handleSelect);
+            // @formatter:on
+        }
+
+        return new self($title, $text, $handleSelect);
+    }
+
+    /**
+     * @param string $title Form title
+     * @param string $text Message text to display on the form
+     * @param Closure|null $handleSelect Called when the button is selected
+     * @phpstan-param Closure(Player, ModalFormResponse): void|null $handleSelect
+     *
+     * @see ModalForm::handleSelect()
+     */
     public function __construct(
         string             $title,
         string             $text,
