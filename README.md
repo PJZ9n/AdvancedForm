@@ -77,7 +77,6 @@ class ExampleForm extends CustomForm
 
 #### MenuForm
 
-- `title`: Form title
 - `text`: Message text to display on the form
 - `buttons`: List of selectable buttons (optional)
 
@@ -124,7 +123,6 @@ class ExampleForm extends MenuForm
 
 #### ModalForm
 
-- `title`: Form title
 - `text`: Message text to display on the form
 
 ```php
