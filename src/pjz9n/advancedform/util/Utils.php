@@ -41,6 +41,24 @@ final class Utils
         return array_values($array);
     }
 
+    /**
+     * Check if the keys in the array are serial numbers
+     * NOTE: Here, the list is that the keys are serial numbers in order
+     *
+     * @param mixed[] $array
+     */
+    public static function isList(array $array): bool
+    {
+        $i = 0;
+        foreach ($array as $key => $value) {
+            if ($key !== $i) {
+                return false;
+            }
+            $i++;
+        }
+        return true;
+    }
+
     private function __construct()
     {
         //NOOP
