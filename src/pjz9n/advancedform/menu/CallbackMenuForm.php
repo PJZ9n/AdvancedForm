@@ -50,7 +50,7 @@ class CallbackMenuForm extends MenuForm
         ?Closure $handleSelect = null,
         ?Closure $handleClose = null,
         array    $buttons = [],
-    )
+    ): self
     {
         if ($handleSelect !== null) {
             // @formatter:off
