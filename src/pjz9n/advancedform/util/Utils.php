@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace pjz9n\advancedform\util;
 
+use pocketmine\utils\AssumptionFailedError;
 use function array_values;
 
 final class Utils
@@ -57,6 +58,18 @@ final class Utils
             $i++;
         }
         return true;
+    }
+
+    /**
+     * @phpstan-template T of mixed
+     *
+     * @phpstan-param T $value
+     * @return T
+     */
+    public static function assertFalse(mixed $value): mixed
+    {
+        if ($value === false) throw new AssumptionFailedError("Assertion failed");
+        return $value;
     }
 
     private function __construct()
