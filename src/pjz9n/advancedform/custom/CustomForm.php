@@ -69,12 +69,42 @@ abstract class CustomForm extends FormBase
     }
 
     /**
+     * Element highlight shortcut
+     *
+     * @see Element::setHighlight()
+     */
+    public function setHighlight(string $name): self
+    {
+        $element = $this->getElement($name);
+        if ($element === null) {
+            throw new InvalidArgumentException("Element $name not exists");
+        }
+        $element->setHighlight();
+        return clone $this;
+    }
+
+    /**
      * @return Element[]
      * @phpstan-return list<Element>
      */
     public function getElements(): array
     {
         return $this->elements;
+    }
+
+    public function getElement(string $name): ?Element
+    {
+        foreach ($this->elements as $element) {
+            if ($element->getName() === $name) {
+                return $element;
+            }
+        }
+        return null;
+    }
+
+    public function getElementByOffset(int $offset): ?Element
+    {
+        return $this->elements[$offset] ?? null;
     }
 
     /**
@@ -136,6 +166,18 @@ abstract class CustomForm extends FormBase
         }
         unset($this->elements[$offset]);
         $this->elements = Utils::arrayToList($this->elements);
+        return clone $this;
+    }
+
+    public function clean(): self
+    {
+        foreach ($this->elements as $element) {
+            if ($element->isHighlight()) {
+                $element->setHighlight(false);
+            }
+        }
+
+        parent::clean();
         return clone $this;
     }
 

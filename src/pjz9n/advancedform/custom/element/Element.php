@@ -26,6 +26,7 @@ namespace pjz9n\advancedform\custom\element;
 use JsonSerializable;
 use pjz9n\advancedform\custom\result\CustomFormResult;
 use pocketmine\form\FormValidationException;
+use pocketmine\utils\TextFormat;
 
 abstract class Element implements JsonSerializable
 {
@@ -49,11 +50,36 @@ abstract class Element implements JsonSerializable
      */
     abstract public function generateResult(mixed $value): CustomFormResult;
 
+    protected bool $highlight = false;
+    protected string $highlightPrefix = TextFormat::BOLD . TextFormat::YELLOW;
+
     public function __construct(
         protected string  $text,
         protected ?string $name = null,
     )
     {
+    }
+
+    public function isHighlight(): bool
+    {
+        return $this->highlight;
+    }
+
+    public function setHighlight(bool $highlight = true): self
+    {
+        $this->highlight = $highlight;
+        return clone $this;
+    }
+
+    public function getHighlightPrefix(): string
+    {
+        return $this->highlightPrefix;
+    }
+
+    public function setHighlightPrefix(string $highlightPrefix): self
+    {
+        $this->highlightPrefix = $highlightPrefix;
+        return clone $this;
     }
 
     public function getText(): string
@@ -86,7 +112,7 @@ abstract class Element implements JsonSerializable
     {
         return [
             "type" => $this->getType(),
-            "text" => $this->text,
+            "text" => ($this->highlight ? $this->highlightPrefix : "") . $this->text,
         ];
     }
 }
