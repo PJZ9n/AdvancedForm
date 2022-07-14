@@ -39,7 +39,9 @@ Arguments to pass to create
 - `elements`: Form elements (optional)
 
 ```php
-public function __construct(string $title, array $elements = [])
+use pjz9n\advancedform\custom\CustomForm;
+
+public function CustomForm::__construct(string $title, array $elements = [])
 ```
 
 - `handleSubmit`: Called when the form is submitted (optional)
@@ -81,7 +83,9 @@ class ExampleForm extends CustomForm
 - `buttons`: List of selectable buttons (optional)
 
 ```php
-public function __construct(string $title, string $text, array $buttons = [])
+use pjz9n\advancedform\menu\MenuForm;
+
+public function MenuForm::__construct(string $title, string $text, array $buttons = [])
 ```
 
 - `handleSelect`: Called when the button is selected
@@ -126,7 +130,9 @@ class ExampleForm extends MenuForm
 - `text`: Message text to display on the form
 
 ```php
-public function __construct(string $title, string $text, ?Button $yesButton = null, ?Button $noButton)
+use pjz9n\advancedform\modal\ModalForm;
+
+public function ModalForm::__construct(string $title, string $text, ?Button $yesButton = null, ?Button $noButton)
 ```
 
 - `handleSelect`: Called when the button is selected
