@@ -28,8 +28,9 @@ use JsonSerializable;
 class SelectorOption implements JsonSerializable
 {
     public function __construct(
-        protected string $text,
-        protected mixed  $value = null,
+        protected string  $text,
+        protected mixed   $value = null,
+        protected ?string $name = null,
     )
     {
     }
@@ -52,6 +53,17 @@ class SelectorOption implements JsonSerializable
     public function setValue(mixed $value): self
     {
         $this->value = $value;
+        return clone $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
         return clone $this;
     }
 

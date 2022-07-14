@@ -55,4 +55,9 @@ class SelectorResult extends CustomFormResult
     {
         return $this->getOption()->getValue();
     }
+
+    public function getOptionName(): ?string
+    {
+        return $this->getOption()->getName();
+    }
 }
