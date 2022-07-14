@@ -30,9 +30,10 @@ use function array_merge;
 class ImageButton extends Button
 {
     /**
-     * @inheritDoc
-     *
+     * @param string $text Label text displayed on the button
      * @param ButtonImage $image Button image displayed with the button
+     * @param string|null $name Name to identify the button
+     * @param ButtonHandler|null $handler Handler to handle when a button is selected
      */
     public function __construct(
         string                $text,
