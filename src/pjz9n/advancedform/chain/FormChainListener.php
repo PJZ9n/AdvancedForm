@@ -97,10 +97,13 @@ final class FormChainListener implements Listener
                 AdvancedForm::getLogger()->debug("FormChain: receive: unexcepted form response");
                 return;
             }
-            $inGamePacketHandlerClass = new ReflectionClass(InGamePacketHandler::class);
-            $stupidJsonDecodeMethod = $inGamePacketHandlerClass->getMethod("stupid_json_decode");
-            $stupidJsonDecodeMethod->setAccessible(true);
-            $decodedFormData = $stupidJsonDecodeMethod->invoke(null, $packet->formData, true);
+            $decodedFormData = null;
+            if ($packet->cancelReason === null && $packet->formData !== null) {
+                $inGamePacketHandlerClass = new ReflectionClass(InGamePacketHandler::class);
+                $stupidJsonDecodeMethod = $inGamePacketHandlerClass->getMethod("stupid_json_decode");
+                $stupidJsonDecodeMethod->setAccessible(true);
+                $decodedFormData = $stupidJsonDecodeMethod->invoke(null, $packet->formData, true);
+            }
             if ($decodedFormData === null) {
                 //When close the form, the form chain is end
                 //TODO: Closing the form may not send a response
