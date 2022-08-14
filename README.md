@@ -1,5 +1,7 @@
 # AdvancedForm
 
+[![](https://poggit.pmmp.io/ci.badge/PJZ9n/AdvancedForm/AdvancedForm)](https://poggit.pmmp.io/ci/PJZ9n/AdvancedForm/~)
+
 # Work in progress: This is under development and is not perfect. The API is not backwards compatible.
 
 We welcome your contributions. Tell us about bugs and your thoughts! And let's complete it!
