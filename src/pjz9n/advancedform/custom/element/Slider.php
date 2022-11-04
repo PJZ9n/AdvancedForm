@@ -104,9 +104,10 @@ class Slider extends Element
         return $this->optoutSliderDivisibleValidate;
     }
 
-    public function setOptoutSliderDivisibleValidate(bool $optoutSliderDivisibleValidate): void
+    public function setOptoutSliderDivisibleValidate(bool $optoutSliderDivisibleValidate): self
     {
         $this->optoutSliderDivisibleValidate = $optoutSliderDivisibleValidate;
+        return $this;
     }
 
     public function validate(mixed $value): void
