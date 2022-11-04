@@ -39,6 +39,9 @@ class Slider extends Element
         return ElementTypes::SLIDER;
     }
 
+    /**
+     * @param bool $optoutSliderDivisibleValidate Whether to opt out of verification that the slider value is divisible, Due to the difference in floating point precision between MCPE and this one, you may encounter problems.
+     */
     public function __construct(
         string           $text,
         protected float  $min,
@@ -46,6 +49,7 @@ class Slider extends Element
         protected float  $step,
         protected ?float $default = null,
         ?string          $name = null,
+        protected bool   $optoutSliderDivisibleValidate = false,
     )
     {
         parent::__construct($text, $name);
@@ -95,6 +99,16 @@ class Slider extends Element
         return $this;
     }
 
+    public function isOptoutSliderDivisibleValidate(): bool
+    {
+        return $this->optoutSliderDivisibleValidate;
+    }
+
+    public function setOptoutSliderDivisibleValidate(bool $optoutSliderDivisibleValidate): void
+    {
+        $this->optoutSliderDivisibleValidate = $optoutSliderDivisibleValidate;
+    }
+
     public function validate(mixed $value): void
     {
         if ((!is_int($value)) && (!is_float($value))) {
@@ -103,9 +117,11 @@ class Slider extends Element
         if ($value < $this->min || $value > $this->max) {
             throw new FormValidationException("Excepted range $this->min ... $this->max, got " . $value);
         }
-        //TODO: Incomplete processing due to error in float
-        if ($value !== 0 && !ctype_digit((string)(round($value, strlen((string)$this->step)) / $this->step))) {
-            throw new FormValidationException("Value $value is not divisible by step ($this->step)");
+        if (!$this->optoutSliderDivisibleValidate) {
+            //TODO: Incomplete processing due to error in float
+            if ($value !== 0 && !ctype_digit((string)(round($value, strlen((string)$this->step)) / $this->step))) {
+                throw new FormValidationException("Value $value is not divisible by step ($this->step)");
+            }
         }
     }
 
