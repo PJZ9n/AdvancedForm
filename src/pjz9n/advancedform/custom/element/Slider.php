@@ -119,7 +119,7 @@ class Slider extends Element
         }
         if (!$this->optoutSliderDivisibleValidate) {
             //TODO: Incomplete processing due to error in float
-            if ($value !== 0 && !ctype_digit((string)(round($value, strlen((string)$this->step)) / $this->step))) {
+            if ($value !== 0 && $value !== $this->max && !ctype_digit((string)(round($value, strlen((string)$this->step)) / $this->step))) {
                 throw new FormValidationException("Value $value is not divisible by step ($this->step)");
             }
         }
