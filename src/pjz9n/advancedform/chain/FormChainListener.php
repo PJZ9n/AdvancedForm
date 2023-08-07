@@ -23,14 +23,15 @@ declare(strict_types=1);
 
 namespace pjz9n\advancedform\chain;
 
+use JsonException;
 use pjz9n\advancedform\AdvancedForm;
 use pocketmine\event\Listener;
 use pocketmine\event\server\DataPacketReceiveEvent;
 use pocketmine\event\server\DataPacketSendEvent;
 use pocketmine\form\Form;
-use pocketmine\network\mcpe\handler\InGamePacketHandler;
 use pocketmine\network\mcpe\protocol\ModalFormRequestPacket;
 use pocketmine\network\mcpe\protocol\ModalFormResponsePacket;
+use pocketmine\network\PacketHandlingException;
 use pocketmine\player\Player;
 use pocketmine\plugin\Plugin;
 use pocketmine\scheduler\ClosureTask;
@@ -38,6 +39,7 @@ use pocketmine\Server;
 use ReflectionClass;
 use ReflectionException;
 use function array_key_exists;
+use function json_decode;
 
 final class FormChainListener implements Listener
 {
@@ -85,7 +87,7 @@ final class FormChainListener implements Listener
     }
 
     /**
-     * @throws ReflectionException
+     * @throws PacketHandlingException
      */
     public function onReceiveForm(DataPacketReceiveEvent $event): void
     {
@@ -99,10 +101,11 @@ final class FormChainListener implements Listener
             }
             $decodedFormData = null;
             if ($packet->cancelReason === null && $packet->formData !== null) {
-                $inGamePacketHandlerClass = new ReflectionClass(InGamePacketHandler::class);
-                $stupidJsonDecodeMethod = $inGamePacketHandlerClass->getMethod("stupid_json_decode");
-                $stupidJsonDecodeMethod->setAccessible(true);
-                $decodedFormData = $stupidJsonDecodeMethod->invoke(null, $packet->formData, true);
+                try {
+                    $decodedFormData = json_decode($packet->formData, true, 2, JSON_THROW_ON_ERROR);
+                } catch(JsonException $e) {
+                    throw PacketHandlingException::wrap($e, "Failed to decode form response data");
+                }
             }
             if ($decodedFormData === null) {
                 //When close the form, the form chain is end
