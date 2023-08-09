@@ -94,7 +94,7 @@ final class FormChainListener implements Listener
         $packet = $event->getPacket();
         if ($packet instanceof ModalFormResponsePacket) {
             if (!array_key_exists($packet->formId, $this->getForms($player))) {
-                AdvancedForm::getLogger()->debug("FormChain: receive: unexcepted form response");
+                AdvancedForm::getLogger()->debug("FormChain: receive: unexpected form response");
                 return;
             }
             $decodedFormData = null;
