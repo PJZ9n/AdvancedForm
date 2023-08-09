@@ -87,6 +87,7 @@ final class FormChainListener implements Listener
     }
 
     /**
+     * @throws ReflectionException
      * @throws PacketHandlingException
      */
     public function onReceiveForm(DataPacketReceiveEvent $event): void
