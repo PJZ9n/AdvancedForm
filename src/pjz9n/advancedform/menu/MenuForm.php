@@ -153,7 +153,7 @@ abstract class MenuForm extends FormBase
         } else if (is_int($data)) {
             $buttonsCount = count($this->buttons);
             if ($data < 0 || $data >= $buttonsCount) {
-                throw new  FormValidationException("Excepted range 0 ... " . ($buttonsCount - 1) . ", got $data");
+                throw new  FormValidationException("Expected range 0 ... " . ($buttonsCount - 1) . ", got $data");
             }
             assert(array_key_exists($data, $this->buttons), "There is a button here");
             $selectedButton = $this->buttons[$data];
@@ -162,7 +162,7 @@ abstract class MenuForm extends FormBase
                 $this->handleSelect($player, new MenuFormResponse($selectedButton, $data));
             }
         } else {
-            throw new FormValidationException("Excepted int or null, got " . gettype($data));
+            throw new FormValidationException("Expected int or null, got " . gettype($data));
         }
     }
 

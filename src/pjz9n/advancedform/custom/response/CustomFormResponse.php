@@ -165,7 +165,7 @@ class CustomFormResponse
     private function checkType(CustomFormResult $result, string $class): void
     {
         if (!($result instanceof $class)) {
-            throw new InvalidArgumentException("Excepted $class, got " . gettype($result));
+            throw new InvalidArgumentException("Expected $class, got " . gettype($result));
         }
     }
 }

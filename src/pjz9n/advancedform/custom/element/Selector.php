@@ -139,7 +139,7 @@ abstract class Selector extends Element
     public function validate(mixed $value): void
     {
         if (!is_int($value)) {
-            throw new FormValidationException("Excepted int, got " . gettype($value));
+            throw new FormValidationException("Expected int, got " . gettype($value));
         }
     }
 

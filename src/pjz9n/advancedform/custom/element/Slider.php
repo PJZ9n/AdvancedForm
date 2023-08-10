@@ -113,10 +113,10 @@ class Slider extends Element
     public function validate(mixed $value): void
     {
         if ((!is_int($value)) && (!is_float($value))) {
-            throw new FormValidationException("Excepted int or float, got " . gettype($value));
+            throw new FormValidationException("Expected int or float, got " . gettype($value));
         }
         if ($value < $this->min || $value > $this->max) {
-            throw new FormValidationException("Excepted range $this->min ... $this->max, got " . $value);
+            throw new FormValidationException("Expected range $this->min ... $this->max, got " . $value);
         }
         if (!$this->optoutSliderDivisibleValidate) {
             //TODO: Incomplete processing due to error in float
