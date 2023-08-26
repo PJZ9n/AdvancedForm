@@ -25,7 +25,7 @@ namespace pjz9n\advancedform\custom\element;
 
 interface ElementTypes
 {
-    //TOOO: Add docs
+    //TODO: Add docs
 
     public const DROPDOWN = "dropdown";
     public const INPUT = "input";

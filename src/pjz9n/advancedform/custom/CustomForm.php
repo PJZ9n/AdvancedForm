@@ -266,16 +266,16 @@ abstract class CustomForm extends FormBase
             return;
         }
         if (!is_array($data)) {
-            throw new FormValidationException("Excepted array, got " . gettype($data));
+            throw new FormValidationException("Expected array, got " . gettype($data));
         }
         if (!Utils::isList($data)) {
-            throw new FormValidationException("Excepted list, got no-list array");
+            throw new FormValidationException("Expected list, got no-list array");
         }
         $rawResponseCount = count($data);
         $elementsCount = count($this->elements);
         $elementsCount += count($this->messages);
         if ($rawResponseCount !== $elementsCount) {
-            throw new FormValidationException("Excepted $elementsCount response(s), got $rawResponseCount response(s)");
+            throw new FormValidationException("Expected $elementsCount response(s), got $rawResponseCount response(s)");
         }
         $results = [];
         $handled = false;

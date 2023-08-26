@@ -100,7 +100,7 @@ final class FormChain
             if ($backTo !== null) {
                 $previousFormClass = $previousForm::class;
                 if (!in_array($previousFormClass, $backTo, true)) {
-                    AdvancedForm::getLogger()->warning("Failed to back: Excepted class is [ " . implode($backTo) . " ], but the previous form class is $previousFormClass");
+                    AdvancedForm::getLogger()->warning("Failed to back: Expected class is [ " . implode($backTo) . " ], but the previous form class is $previousFormClass");
                     return;
                 }
             }

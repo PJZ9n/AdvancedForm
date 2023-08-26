@@ -71,7 +71,7 @@ class Input extends Element
     public function validate(mixed $value): void
     {
         if (!is_string($value)) {
-            throw new FormValidationException("Excepted string, got " . gettype($value));
+            throw new FormValidationException("Expected string, got " . gettype($value));
         }
     }
 

@@ -99,7 +99,7 @@ abstract class ModalForm extends FormBase
     final public function handleResponse(Player $player, $data): void
     {
         if (!is_bool($data)) {
-            throw new FormValidationException("Excepted bool, got " . gettype($data));
+            throw new FormValidationException("Expected bool, got " . gettype($data));
         }
         $selectedButton = $data ? $this->yesButton : $this->noButton;
         $handler = $selectedButton->getHandler();
