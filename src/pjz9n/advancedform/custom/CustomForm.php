@@ -348,7 +348,7 @@ abstract class CustomForm extends FormBase
         }
         return [
             "content" => array_merge(
-                count($this->messages) <= 0 ? [] : [new Label(implode(TextFormat::EOL, array_map(fn(string $message): string => $message . TextFormat::RESET, $this->messages)))],
+				array_map(fn(string $message): Label => new Label($message), $this->messages),
                 $elements,
             ),
         ];
