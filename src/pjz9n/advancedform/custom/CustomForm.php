@@ -348,7 +348,7 @@ abstract class CustomForm extends FormBase
         }
         return [
             "content" => array_merge(
-				array_map(fn(string $message): Label => new Label($message), $this->messages),
+                array_map(fn(string $message): Label => new Label($message), $this->messages),
                 $elements,
             ),
         ];
