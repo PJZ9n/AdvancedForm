@@ -100,7 +100,7 @@ abstract class ModalForm extends FormBase
     {
         if ($data === null) {
             $this->handleClose($player);
-        } else if (!is_bool($data)) {
+        } else if (is_bool($data)) {
             $selectedButton = $data ? $this->yesButton : $this->noButton;
             $handler = $selectedButton->getHandler();
             if ($handler === null || (!$handler->handle($this, $selectedButton, $player))) {
