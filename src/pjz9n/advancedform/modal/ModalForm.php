@@ -98,13 +98,16 @@ abstract class ModalForm extends FormBase
 
     final public function handleResponse(Player $player, $data): void
     {
-        if (!is_bool($data)) {
+        if ($data === null) {
+            $this->handleClose($player);
+        } else if (!is_bool($data)) {
+            $selectedButton = $data ? $this->yesButton : $this->noButton;
+            $handler = $selectedButton->getHandler();
+            if ($handler === null || (!$handler->handle($this, $selectedButton, $player))) {
+                $this->handleSelect($player, new ModalFormResponse($selectedButton, $data));
+            }
+        } else {
             throw new FormValidationException("Expected bool, got " . gettype($data));
-        }
-        $selectedButton = $data ? $this->yesButton : $this->noButton;
-        $handler = $selectedButton->getHandler();
-        if ($handler === null || (!$handler->handle($this, $selectedButton, $player))) {
-            $this->handleSelect($player, new ModalFormResponse($selectedButton, $data));
         }
     }
 
@@ -113,6 +116,14 @@ abstract class ModalForm extends FormBase
      * NOTE: This will not be called if successfully processed by ButtonHandler!
      */
     protected function handleSelect(Player $player, ModalFormResponse $response): void
+    {
+        //NOOP
+    }
+
+    /**
+     * Called when the form is closed
+     */
+    protected function handleClose(Player $player): void
     {
         //NOOP
     }
