@@ -34,9 +34,12 @@ class CallbackModalForm extends ModalForm
      * @param string $title Form title
      * @param string $text Message text to display on the form
      * @param Closure|null $handleSelect Called when the button is selected
+     * @param Closure|null $handleClose Called when the form is closed
      * @phpstan-param Closure(Player, ModalFormResponse): void|null $handleSelect
+     * @phpstan-param Closure(Player): void|null $handleClose
      *
      * @see ModalForm::handleSelect()
+     * @see ModalForm::handleClose()
      */
     public static function create(
         string   $title,
@@ -64,6 +67,7 @@ class CallbackModalForm extends ModalForm
      * @param string $title Form title
      * @param string $text Message text to display on the form
      * @param Closure|null $handleSelect Called when the button is selected
+     * @param Closure|null $handleClose Called when the form is closed
      * @phpstan-param Closure(Player, ModalFormResponse): void|null $handleSelect
      * @phpstan-param Closure(Player): void|null $handleClose
      *
