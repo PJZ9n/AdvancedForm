@@ -107,7 +107,7 @@ abstract class ModalForm extends FormBase
                 $this->handleSelect($player, new ModalFormResponse($selectedButton, $data));
             }
         } else {
-            throw new FormValidationException("Expected bool, got " . gettype($data));
+            throw new FormValidationException("Expected bool or null, got " . gettype($data));
         }
     }
 
