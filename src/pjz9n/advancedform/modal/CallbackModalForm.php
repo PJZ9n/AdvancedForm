@@ -34,14 +34,18 @@ class CallbackModalForm extends ModalForm
      * @param string $title Form title
      * @param string $text Message text to display on the form
      * @param Closure|null $handleSelect Called when the button is selected
+     * @param Closure|null $handleClose Called when the form is closed
      * @phpstan-param Closure(Player, ModalFormResponse): void|null $handleSelect
+     * @phpstan-param Closure(Player): void|null $handleClose
      *
      * @see ModalForm::handleSelect()
+     * @see ModalForm::handleClose()
      */
     public static function create(
         string   $title,
         string   $text,
         ?Closure $handleSelect = null,
+        ?Closure $handleClose = null,
     ): self
     {
         if ($handleSelect !== null) {
@@ -50,26 +54,42 @@ class CallbackModalForm extends ModalForm
             // @formatter:on
         }
 
-        return new self($title, $text, $handleSelect);
+        if ($handleClose !== null) {
+            // @formatter:off
+            Utils::validateCallableSignature(function (Player $player): void {}, $handleClose);
+            // @formatter:on
+        }
+
+        return new self($title, $text, $handleSelect, $handleClose);
     }
 
     /**
      * @param string $title Form title
      * @param string $text Message text to display on the form
      * @param Closure|null $handleSelect Called when the button is selected
+     * @param Closure|null $handleClose Called when the form is closed
      * @phpstan-param Closure(Player, ModalFormResponse): void|null $handleSelect
+     * @phpstan-param Closure(Player): void|null $handleClose
      *
      * @see ModalForm::handleSelect()
+     * @see ModalForm::handleClose()
      */
     public function __construct(
         string             $title,
         string             $text,
         protected ?Closure $handleSelect = null,
+        protected ?Closure $handleClose = null,
     )
     {
         if ($this->handleSelect !== null) {
             // @formatter:off
             Utils::validateCallableSignature(function (Player $player, ModalFormResponse $response): void {}, $this->handleSelect);
+            // @formatter:on
+        }
+
+        if ($this->handleClose !== null) {
+            // @formatter:off
+            Utils::validateCallableSignature(function (Player $player): void {}, $this->handleClose);
             // @formatter:on
         }
 
@@ -93,10 +113,34 @@ class CallbackModalForm extends ModalForm
         return $this;
     }
 
+    /**
+     * @phpstan-return Closure(Player): void|null
+     */
+    public function getHandleClose(): ?Closure
+    {
+        return $this->handleClose;
+    }
+
+    /**
+     * @phpstan-param Closure(Player): void|null $handleClose
+     */
+    public function setHandleClose(?Closure $handleClose): self
+    {
+        $this->handleClose = $handleClose;
+        return $this;
+    }
+
     protected function handleSelect(Player $player, ModalFormResponse $response): void
     {
         if ($this->handleSelect !== null) {
             ($this->handleSelect)($player, $response);
+        }
+    }
+
+    protected function handleClose(Player $player): void
+    {
+        if ($this->handleClose !== null) {
+            ($this->handleClose)($player);
         }
     }
 }
