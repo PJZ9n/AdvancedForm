@@ -45,7 +45,7 @@ class CallbackModalForm extends ModalForm
         string   $title,
         string   $text,
         ?Closure $handleSelect = null,
-        ?Closure $handleClose = null
+        ?Closure $handleClose = null,
     ): self
     {
         if ($handleSelect !== null) {
@@ -78,7 +78,7 @@ class CallbackModalForm extends ModalForm
         string             $title,
         string             $text,
         protected ?Closure $handleSelect = null,
-        protected ?Closure $handleClose = null
+        protected ?Closure $handleClose = null,
     )
     {
         if ($this->handleSelect !== null) {
@@ -143,6 +143,4 @@ class CallbackModalForm extends ModalForm
             ($this->handleClose)($player);
         }
     }
-
-
 }
