@@ -48,18 +48,6 @@ class CallbackModalForm extends ModalForm
         ?Closure $handleClose = null,
     ): self
     {
-        if ($handleSelect !== null) {
-            // @formatter:off
-            Utils::validateCallableSignature(function (Player $player, ModalFormResponse $response): void {}, $handleSelect);
-            // @formatter:on
-        }
-
-        if ($handleClose !== null) {
-            // @formatter:off
-            Utils::validateCallableSignature(function (Player $player): void {}, $handleClose);
-            // @formatter:on
-        }
-
         return new self($title, $text, $handleSelect, $handleClose);
     }
 
