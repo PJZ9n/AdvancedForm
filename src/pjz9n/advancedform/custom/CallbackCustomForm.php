@@ -47,17 +47,6 @@ class CallbackCustomForm extends CustomForm
         array    $elements = [],
     ): self
     {
-        if ($handleSubmit !== null) {
-            // @formatter:off
-            Utils::validateCallableSignature(function (Player $player, CustomFormResponse $response): void {}, $handleSubmit);
-            // @formatter:on
-        }
-        if ($handleClose !== null) {
-            // @formatter:off
-            Utils::validateCallableSignature(function (Player $player): void {}, $handleClose);
-            // @formatter:on
-        }
-
         return new self($title, $handleSubmit, $handleClose, $elements);
     }
 
