@@ -1,8 +1,7 @@
 {
   "name": "pjz9n/advancedform",
   "require": {
-    "pocketmine/pocketmine-mp": "^5.0.0",
-    "php": "^8.1"
+    "pocketmine/pocketmine-mp": "^5.0.0"
   },
   "autoload": {
     "classmap": ["src"]
