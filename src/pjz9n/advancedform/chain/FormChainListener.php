@@ -74,11 +74,14 @@ final class FormChainListener implements Listener
                     $formId = $packet->formId;
                     //It will be added to the Player::$forms queue after it completes sending the packet and should be delayed
                     AdvancedForm::getPlugin()->getScheduler()->scheduleDelayedTask(new ClosureTask(function () use ($player, $formId): void {
-                        $forms = $this->getForms($player);
-                        assert(array_key_exists($formId, $forms), "Form is sent");
-                        $form = $forms[$formId];
                         AdvancedForm::getLogger()->debug("FormChain: schedule: run: $formId");
-                        PlayerFormChainMap::get($player)->push($form);
+                        $forms = $this->getForms($player);
+                        if (array_key_exists($formId, $forms)) {
+                            $form = $forms[$formId];
+                            PlayerFormChainMap::get($player)->push($form);
+                        } else {
+                            AdvancedForm::getLogger()->notice("Form(id=$formId) likely sent without using Player::sendForm. Ignoring.");
+                        }
                     }), 1);
                     AdvancedForm::getLogger()->debug("FormChain: schedule: $formId");
                 }
