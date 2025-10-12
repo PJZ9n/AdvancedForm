@@ -6,6 +6,35 @@
 
 We welcome your contributions. Tell us about bugs and your thoughts! And let's complete it!
 
+## How to require virion (Compatible with Virion v3.1)
+
+Initialize a Composer project if composer.json does not exist
+```
+composer init
+```
+
+Add repository to composer.json
+```json
+{
+  ...
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/PJZ9n/AdvancedForm.git"
+    }
+  ]
+  ...
+}
+```
+
+Require this library
+```
+composer require pjz9n/advancedform:dev-<branch>
+```
+
+More details for Virion (Official User Guide)
+https://github.com/poggit/support/blob/3e49af2e440f8189ff4b3785b80c6a8e9fd07603/virion.md#virion-user-guide
+
 ## Overview
 
 Multi-functional and easy-to-use form framework
