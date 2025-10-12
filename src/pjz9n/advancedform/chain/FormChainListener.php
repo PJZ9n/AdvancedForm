@@ -104,7 +104,7 @@ final class FormChainListener implements Listener
             if ($packet->cancelReason === null && $packet->formData !== null) {
                 try {
                     $decodedFormData = json_decode($packet->formData, true, 2, JSON_THROW_ON_ERROR);
-                } catch(JsonException $e) {
+                } catch (JsonException $e) {
                     throw PacketHandlingException::wrap($e, "Failed to decode form response data");
                 }
             }
