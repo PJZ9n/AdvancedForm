@@ -1,6 +1,6 @@
 # Deprecated, backward compatibility for Virion v1.x
 name: AdvancedForm
-version: 0.0.2
+version: 0.0.3
 antigen: pjz9n\advancedform
 api:
   - 4.0.0
