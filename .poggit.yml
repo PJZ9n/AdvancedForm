@@ -5,6 +5,6 @@ branches:
 projects:
   AdvancedForm:
     path: ""
-    model: virion
     type: library
+    model: virion
 ...
